@@ -20,12 +20,14 @@ public class Plane : MonoBehaviour
     [Space]
     public GameObject proximityWarningObject;
 
+    [HideInInspector]
+    // Modified by ProximitySensor
+    public int nearbyPlanes;
+
     Quaternion targetRotation;
     Vector3 lastPosition;
     Vector3 startingScale;
     float landingTimer;
-
-    int nearbyPlanes;
 
     Camera cam;
     LineRenderer lineRenderer;
@@ -119,20 +121,6 @@ public class Plane : MonoBehaviour
     {
         // Kill us if we leave the screen
         Destroy(gameObject);
-    }
-
-
-    // Check if planes enter of our warning zone
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag(PlaneTag))
-            nearbyPlanes++;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag(PlaneTag))
-            nearbyPlanes--;
     }
 
 
