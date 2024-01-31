@@ -355,6 +355,31 @@ MonoBehaviour:
   moveSpeed: 1
   reachedPointThreshold: 0.15
   rotationSpeed: 180
+  landingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.05044784
+      outSlope: -0.05044784
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.093502365
+    - serializedVersion: 3
+      time: 1
+      value: -0.0023498535
+      inSlope: -2.914171
+      outSlope: -2.914171
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.038034976
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  landingTime: 3
 --- !u!212 &1916544166
 SpriteRenderer:
   m_ObjectHideFlags: 0

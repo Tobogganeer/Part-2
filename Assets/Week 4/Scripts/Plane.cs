@@ -13,11 +13,17 @@ public class Plane : MonoBehaviour
     public float reachedPointThreshold = 0.1f;
     public float rotationSpeed = 360f;
 
+    [Space]
+    public AnimationCurve landingCurve;
+    public float landingTime = 1.0f;
+
     Quaternion targetRotation;
     Vector3 lastPosition;
     Camera cam;
     LineRenderer lineRenderer;
     Rigidbody2D rb;
+    float landingTimer;
+    Vector3 startingScale;
 
     private void Start()
     {
@@ -25,6 +31,24 @@ public class Plane : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 0;
         rb = GetComponent<Rigidbody2D>();
+
+        startingScale = transform.localScale;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            landingTimer += (1f / landingTime) * Time.deltaTime;
+            float interpolation = landingCurve.Evaluate(landingTimer);
+
+            // Whoops, we landed
+            if (landingTimer >= 1.0f)
+                Destroy(gameObject);
+            else
+                // Landing timer @ 0 means interpolation will be high
+                transform.localScale = Vector3.Lerp(Vector3.zero, startingScale, interpolation);
+        }
     }
 
     private void FixedUpdate()
