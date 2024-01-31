@@ -351,7 +351,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: []
-  pointThreshold: 0.5
+  pointThreshold: 0.33
+  moveSpeed: 1
+  reachedPointThreshold: 0.15
+  rotationSpeed: 180
 --- !u!212 &1916544166
 SpriteRenderer:
   m_ObjectHideFlags: 0
