@@ -104,6 +104,12 @@ public class Plane : MonoBehaviour
         }
     }
 
+    private void OnBecameInvisible()
+    {
+        // Kill us if we leave the screen
+        Destroy(gameObject);
+    }
+
 
 
     private void OnMouseDown()
