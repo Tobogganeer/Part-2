@@ -17,13 +17,21 @@ public class Plane : MonoBehaviour
     public AnimationCurve landingCurve;
     public float landingTime = 1.0f;
 
+    [Space]
+    public GameObject proximityWarningObject;
+
     Quaternion targetRotation;
     Vector3 lastPosition;
+    Vector3 startingScale;
+    float landingTimer;
+
+    int nearbyPlanes;
+
     Camera cam;
     LineRenderer lineRenderer;
     Rigidbody2D rb;
-    float landingTimer;
-    Vector3 startingScale;
+
+    static readonly string PlaneTag = "Plane";
 
     private void Start()
     {
@@ -49,6 +57,9 @@ public class Plane : MonoBehaviour
                 // Landing timer @ 0 means interpolation will be high
                 transform.localScale = Vector3.Lerp(Vector3.zero, startingScale, interpolation);
         }
+
+        // Turn the warning light on if we are near any planes
+        proximityWarningObject.SetActive(nearbyPlanes > 0);
     }
 
     private void FixedUpdate()
@@ -108,6 +119,20 @@ public class Plane : MonoBehaviour
     {
         // Kill us if we leave the screen
         Destroy(gameObject);
+    }
+
+
+    // Check if planes enter of our warning zone
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(PlaneTag))
+            nearbyPlanes++;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(PlaneTag))
+            nearbyPlanes--;
     }
 
 
