@@ -123,6 +123,12 @@ public class Plane : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(PlaneTag))
+            Destroy(gameObject);
+    }
+
 
 
     private void OnMouseDown()
