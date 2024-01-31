@@ -19,6 +19,8 @@ public class Plane : MonoBehaviour
 
     [Space]
     public GameObject proximityWarningObject;
+    public bool useBriefCollision = true;
+    public float crashDistance = 0.5f;
 
     [HideInInspector]
     // Modified by ProximitySensor
@@ -123,9 +125,28 @@ public class Plane : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Fix my collision when I didn't know the instructions existed
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(PlaneTag))
+        if (useBriefCollision && collision.CompareTag(PlaneTag))
+            nearbyPlanes++;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (useBriefCollision && collision.CompareTag(PlaneTag))
+            nearbyPlanes--;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // If we are using the proper collision and are colliding with a plane, continue
+        if (!useBriefCollision || !collision.CompareTag(PlaneTag))
+            return;
+
+        // If we are too close, destroy ourselves
+        float dist = Vector3.Distance(collision.transform.position, transform.position);
+        if (dist < crashDistance)
             Destroy(gameObject);
     }
 
@@ -153,5 +174,12 @@ public class Plane : MonoBehaviour
             lineRenderer.SetPosition(lineRenderer.positionCount++, mousePos);
             lastPosition = mousePos;
         }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, crashDistance);
     }
 }
