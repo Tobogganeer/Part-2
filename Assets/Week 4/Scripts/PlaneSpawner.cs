@@ -7,6 +7,7 @@ public class PlaneSpawner : MonoBehaviour
     public GameObject planePrefab;
     public Vector2 spawnTimeRange = new Vector2(5f, 10f);
     public Vector2 scaleRange = new Vector2(0.8f, 1.4f);
+    public Vector2 speedMultiplierRange = new Vector2(0.75f, 1.75f);
 
     [Space]
     public Vector2 saturationRange = new Vector2(0.4f, 0.7f);
@@ -48,6 +49,12 @@ public class PlaneSpawner : MonoBehaviour
             plane.transform.localScale = Vector3.one * Random.Range(scaleRange.x, scaleRange.y);
             plane.GetComponent<SpriteRenderer>().color = Random.ColorHSV(0f, 1f,
                 saturationRange.x, saturationRange.y, valueRange.x, valueRange.y);
+
+            // Randomize speed
+            Plane p = plane.GetComponent<Plane>();
+            float speedMult = Random.Range(speedMultiplierRange.x, speedMultiplierRange.y);
+            p.moveSpeed *= speedMult;
+            p.rotationSpeed *= speedMult;
         }
     }
 
