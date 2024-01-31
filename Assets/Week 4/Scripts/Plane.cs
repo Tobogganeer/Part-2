@@ -16,6 +16,8 @@ public class Plane : MonoBehaviour
     [Space]
     public AnimationCurve landingCurve;
     public float landingTime = 1.0f;
+    [HideInInspector]
+    public bool isLanding;
 
     [Space]
     public GameObject proximityWarningObject;
@@ -35,7 +37,7 @@ public class Plane : MonoBehaviour
     LineRenderer lineRenderer;
     Rigidbody2D rb;
 
-    static readonly string PlaneTag = "Plane";
+    public static readonly string PlaneTag = "Plane";
 
     private void Start()
     {
@@ -49,7 +51,7 @@ public class Plane : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || isLanding)
         {
             landingTimer += (1f / landingTime) * Time.deltaTime;
             float interpolation = landingCurve.Evaluate(landingTimer);
