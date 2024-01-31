@@ -10,8 +10,9 @@ public class PlaneSpawner : MonoBehaviour
     public Vector2 speedMultiplierRange = new Vector2(0.75f, 1.75f);
 
     [Space]
-    public Vector2 saturationRange = new Vector2(0.4f, 0.7f);
-    public Vector2 valueRange = new Vector2(0.4f, 0.7f);
+    //public Vector2 saturationRange = new Vector2(0.4f, 0.7f);
+    //public Vector2 valueRange = new Vector2(0.4f, 0.7f);
+    public Sprite[] planeSprites;
 
     [Space]
     public Vector2 spawnArea = Vector2.one;
@@ -47,8 +48,9 @@ public class PlaneSpawner : MonoBehaviour
             // Spawn it
             GameObject plane = Instantiate(planePrefab, spawnPosition, Quaternion.Euler(0, 0, targetAngle - 90));
             plane.transform.localScale = Vector3.one * Random.Range(scaleRange.x, scaleRange.y);
-            plane.GetComponent<SpriteRenderer>().color = Random.ColorHSV(0f, 1f,
-                saturationRange.x, saturationRange.y, valueRange.x, valueRange.y);
+            //plane.GetComponent<SpriteRenderer>().color = Random.ColorHSV(0f, 1f,
+            //    saturationRange.x, saturationRange.y, valueRange.x, valueRange.y);
+            plane.GetComponent<SpriteRenderer>().sprite = planeSprites[Random.Range(0, planeSprites.Length)];
 
             // Randomize speed
             Plane p = plane.GetComponent<Plane>();

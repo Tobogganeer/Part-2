@@ -171,8 +171,11 @@ MonoBehaviour:
   spawnTimeRange: {x: 3, y: 12}
   scaleRange: {x: 0.8, y: 1.4}
   speedMultiplierRange: {x: 0.75, y: 1.75}
-  saturationRange: {x: 0.6, y: 0.85}
-  valueRange: {x: 0.7, y: 1}
+  planeSprites:
+  - {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  - {fileID: 21300000, guid: 24c052ba7e2db304696a436c1d715f04, type: 3}
+  - {fileID: 21300000, guid: 6bf9530ecd83c664099aa71dd0a5223e, type: 3}
+  - {fileID: 21300000, guid: 3c91ca5ea46cd97409cdc7acb86e3523, type: 3}
   spawnArea: {x: 35, y: 3}
   planeTargetRadius: 5
 --- !u!1 &428032621
@@ -223,8 +226,11 @@ MonoBehaviour:
   spawnTimeRange: {x: 3, y: 12}
   scaleRange: {x: 0.8, y: 1.4}
   speedMultiplierRange: {x: 0.75, y: 1.75}
-  saturationRange: {x: 0.6, y: 0.85}
-  valueRange: {x: 0.7, y: 1}
+  planeSprites:
+  - {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  - {fileID: 21300000, guid: 24c052ba7e2db304696a436c1d715f04, type: 3}
+  - {fileID: 21300000, guid: 6bf9530ecd83c664099aa71dd0a5223e, type: 3}
+  - {fileID: 21300000, guid: 3c91ca5ea46cd97409cdc7acb86e3523, type: 3}
   spawnArea: {x: 3, y: 20}
   planeTargetRadius: 5
 --- !u!1 &502270073
@@ -275,8 +281,11 @@ MonoBehaviour:
   spawnTimeRange: {x: 3, y: 12}
   scaleRange: {x: 0.8, y: 1.4}
   speedMultiplierRange: {x: 0.75, y: 1.75}
-  saturationRange: {x: 0.6, y: 0.85}
-  valueRange: {x: 0.7, y: 1}
+  planeSprites:
+  - {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  - {fileID: 21300000, guid: 24c052ba7e2db304696a436c1d715f04, type: 3}
+  - {fileID: 21300000, guid: 6bf9530ecd83c664099aa71dd0a5223e, type: 3}
+  - {fileID: 21300000, guid: 3c91ca5ea46cd97409cdc7acb86e3523, type: 3}
   spawnArea: {x: 35, y: 3}
   planeTargetRadius: 5
 --- !u!1 &519420028
@@ -404,8 +413,11 @@ MonoBehaviour:
   spawnTimeRange: {x: 3, y: 12}
   scaleRange: {x: 0.8, y: 1.4}
   speedMultiplierRange: {x: 0.75, y: 1.75}
-  saturationRange: {x: 0.6, y: 0.85}
-  valueRange: {x: 0.7, y: 1}
+  planeSprites:
+  - {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  - {fileID: 21300000, guid: 24c052ba7e2db304696a436c1d715f04, type: 3}
+  - {fileID: 21300000, guid: 6bf9530ecd83c664099aa71dd0a5223e, type: 3}
+  - {fileID: 21300000, guid: 3c91ca5ea46cd97409cdc7acb86e3523, type: 3}
   spawnArea: {x: 3, y: 20}
   planeTargetRadius: 5
 --- !u!4 &1233105623
