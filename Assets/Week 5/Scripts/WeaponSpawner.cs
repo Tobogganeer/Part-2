@@ -10,7 +10,10 @@ public class WeaponSpawner : MonoBehaviour
 
     public void SpawnWeapon()
     {
-
+        Vector3 spawnPoint = transform.position;
+        spawnPoint.y += Random.Range(-height / 2f, height / 2f); // Random up/down offset
+        Quaternion spawnRotation = Quaternion.Euler(0, 0, direction == Direction.Left ? 90f : -90f);
+        Instantiate(prefab, spawnPoint, spawnRotation);
     }
 
     private void OnDrawGizmos()
