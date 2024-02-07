@@ -42,6 +42,8 @@ public class Knight : MonoBehaviour
             animator.SetBool(nameof(facingRight), facingRight);
             graphics.localScale = new Vector3(facingRight ? -1f : 1f, 1f, 1f);
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !dead)
+            animator.SetTrigger("attack");
 
         animator.SetBool(nameof(moving), moving);
         animator.SetBool(nameof(dead), dead);
