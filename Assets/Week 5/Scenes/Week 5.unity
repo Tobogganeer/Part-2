@@ -401,6 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 1684435252}
+  fillMoveSpeed: 10
 --- !u!1 &1307176535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,6 +1678,7 @@ MonoBehaviour:
   speed: 2
   maxHealth: 100
   graphics: {fileID: 131460343}
+  healthBar: {fileID: 820292655}
 --- !u!4 &7567006910216494254
 Transform:
   m_ObjectHideFlags: 0
