@@ -6,6 +6,7 @@ public class Knight : MonoBehaviour
 {
     public float speed = 2f;
     public float maxHealth = 100f;
+    public Transform graphics;
 
     Rigidbody2D rb;
     Animator animator;
@@ -23,7 +24,7 @@ public class Knight : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = graphics.GetComponent<Animator>();
         cam = Camera.main; // I know it's cached internally now...
 
         health = maxHealth;
@@ -38,6 +39,7 @@ public class Knight : MonoBehaviour
             facingRight = offset.x > 0;
             // Mirror seems to not work, probably for humanoid rigs
             animator.SetBool(nameof(facingRight), facingRight);
+            graphics.localScale = new Vector3(facingRight ? -1f : 1f, 1f, 1f);
         }
 
         animator.SetBool(nameof(moving), moving);
