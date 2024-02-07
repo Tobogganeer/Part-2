@@ -47,6 +47,10 @@ public class Knight : MonoBehaviour
 
         animator.SetBool(nameof(moving), moving);
         animator.SetBool(nameof(dead), dead);
+
+        if (dead)
+            // Stay still when we get back up
+            destination = transform.position;
     }
 
     private void FixedUpdate()
