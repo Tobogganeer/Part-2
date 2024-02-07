@@ -7,6 +7,7 @@ public class Knight : MonoBehaviour
     public float speed = 2f;
     public float maxHealth = 100f;
     public Transform graphics;
+    public UIBar healthBar; // I don't really like adding the UI stuff here but oh well, keep it simple
 
     Rigidbody2D rb;
     Animator animator;
@@ -74,6 +75,9 @@ public class Knight : MonoBehaviour
         health = Mathf.Clamp(health - amount, 0f, maxHealth);
         if (amount > 0f && !dead)
             animator.SetTrigger("damage");
+
+        if (healthBar != null)
+            healthBar.SetFill(health, 0f, maxHealth);
     }
 
     public void Heal(float amount) => Damage(-amount);
