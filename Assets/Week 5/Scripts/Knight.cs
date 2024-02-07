@@ -14,6 +14,9 @@ public class Knight : MonoBehaviour
     Vector2 destination;
     float health;
     bool moving;
+    bool facingRight;
+    bool dead => health <= 0;
+    bool clickingOnSelf;
 
     const float DestinationDistanceThreshold = 0.05f; // 5cm is close enough
 
@@ -28,10 +31,17 @@ public class Knight : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !clickingOnSelf && !dead)
         {
             destination = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 offset = destination - (Vector2)transform.position;
+            facingRight = offset.x > 0;
+            // Mirror seems to not work, probably for humanoid rigs
+            animator.SetBool(nameof(facingRight), facingRight);
         }
+
+        animator.SetBool(nameof(moving), moving);
+        animator.SetBool(nameof(dead), dead);
     }
 
     private void FixedUpdate()
@@ -42,7 +52,27 @@ public class Knight : MonoBehaviour
         // Check if we still have a bit to move
         moving = (newPosition - destination).sqrMagnitude > DestinationDistanceThreshold * DestinationDistanceThreshold;
 
-        if (moving)
+        if (moving && !dead)
             rb.MovePosition(newPosition);
     }
+
+    private void OnMouseDown()
+    {
+        clickingOnSelf = true;
+        Damage(10f);
+    }
+
+    private void OnMouseUp()
+    {
+        clickingOnSelf = false;
+    }
+
+    public void Damage(float amount)
+    {
+        health = Mathf.Clamp(health - amount, 0f, maxHealth);
+        if (amount > 0f)
+            animator.SetTrigger("damage");
+    }
+
+    public void Heal(float amount) => Damage(-amount);
 }
