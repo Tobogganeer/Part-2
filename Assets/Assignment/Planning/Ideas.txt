@@ -1,0 +1,41 @@
+Angry birds-esque game
+- Different UI elements (birds, score)
+- All mouse-based
+- Animations for birds
+- Damage using SendMessage
+- XXX can't use dynamic rigidbodies :/
+
+Billiards
+- Mouse-based
+- UI for score, balls remaining, power, etc
+- Animations for balls spinning + cue hitting
+- Vector math for bounces and hit direction/power
+- XXX killed by dynamic rigidbody restriction
+
+Target practice game
+- Similar to angry birds idea, but with manually simulated physics
+- Could be like a carnival game popping balloons
+- DARTS - great idea, they would just have a trigger and be stopped upon hitting board
+VVV
+Darts
+- Mouse-based similar to angry birds launching
+- Manually simulated physics, use trigger for collision
+- UI for score and darts remaining
+- Animations for darts spinning in air
+- Vector math for throwing direction & velocity
+- Vector math to look in direction of velocity
+- Lerp for UI dart counter
+- Inter-object communication for score
+- Title scene and game scene
+- Not accurate darts scoring (2d)
+
+Missile dodging game
+- Fly a plane around dodging missiles for as long as possible
+- Plane goes towards mouse cursor, maybe click for a speed boost
+- UI for score/timer & missile alert
+- Animation for missiles (smoke), missile alert & plane/jet
+- Vector math for missiles to target & rotate towards player
+- Smoothly lerp speed using a curve during a speed boost
+- SendMessage for damage/destruction of plane/jet
+- Possibility for powerups as well?
+- Title & game scenes
