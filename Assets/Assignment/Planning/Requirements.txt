@@ -1,0 +1,19 @@
+Requirements:
+- Mouse input must be the primary means of interaction
+- At least 2 distinct UI elements that serve different purposes (eg HUD, health bar, inventory meter, interface buttons, etc)
+- At least 1 Animator Controller using at least 4 different animation clips
+- One vector math calculation from the following:
+  - Calculate the direction between two points for the purpose of moving a game object
+  - Rotate a 2D vector using a specified angle
+- At least one example of linear interpolation of values (eg position, speed, colour, etc) using Lerp with an Animation Curve
+- At least 1 example of inter-object communication using SendMessage
+- At least 2 scenes (eg title scene, menu scene, game over scene, plus the game scene)
+
+Constraints:
+- Do not use dynamic Rigidbody2Ds in this project
+- Do not use coroutines or asynchronous code
+- Do not use any Unity components not covered in Weeks 1-6 (see list of allowed components)
+- Do not use any additional Unity packages except Cinemachine, TextMeshPro and SceneManager
+- Do not import any Unity assets (eg from the Asset Store, GitHub, tutorials, etc) except images and animation clips. That includes animation controllers, prefabs, scripts, scenes, projects
+- Do not use Bolt, Visual Scripting, Playmaker, etc. Your code must be written in C#
+- Do not use Copilot or any generative AI (GPT etc) to write, generate, or fix code
