@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Knight : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Knight : MonoBehaviour
     bool facingRight;
     bool dead => health <= 0;
     bool clickingOnSelf;
+    bool clickingOnCanvas => EventSystem.current.IsPointerOverGameObject();
 
     const float DestinationDistanceThreshold = 0.05f; // 5cm is close enough
 
@@ -33,7 +35,7 @@ public class Knight : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !clickingOnSelf && !dead)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !clickingOnSelf && !clickingOnCanvas && !dead)
         {
             destination = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 offset = destination - (Vector2)transform.position;
@@ -42,7 +44,8 @@ public class Knight : MonoBehaviour
             animator.SetBool(nameof(facingRight), facingRight);
             graphics.localScale = new Vector3(facingRight ? -1f : 1f, 1f, 1f);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !dead)
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !dead && !clickingOnCanvas)
             animator.SetTrigger("attack");
 
         animator.SetBool(nameof(moving), moving);
