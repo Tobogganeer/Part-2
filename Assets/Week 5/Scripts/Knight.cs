@@ -24,6 +24,8 @@ public class Knight : MonoBehaviour
 
     const float DestinationDistanceThreshold = 0.05f; // 5cm is close enough
     static readonly string HealthPlayerPrefsKey = "KnightHealth";
+    static readonly string PosXPlayerPrefsKey = "KnightPosX";
+    static readonly string PosYPlayerPrefsKey = "KnightPosY";
 
     void Start()
     {
@@ -34,6 +36,11 @@ public class Knight : MonoBehaviour
         //health = maxHealth;
         // Load health from prefs
         health = PlayerPrefs.GetFloat(HealthPlayerPrefsKey, maxHealth);
+        // Load the position from prefs
+        destination = new Vector3(
+            PlayerPrefs.GetFloat(PosXPlayerPrefsKey, 0),
+            PlayerPrefs.GetFloat(PosYPlayerPrefsKey, 0));
+        transform.position = destination;
         
         // Set the health, avoiding lerping/smoothing
         UpdateHealthBar(false);
@@ -87,8 +94,10 @@ public class Knight : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Save the health when we are destroyed (called on scene unload)
+        // Save the health and position when we are destroyed (called on scene unload)
         PlayerPrefs.SetFloat(HealthPlayerPrefsKey, health);
+        PlayerPrefs.SetFloat(PosXPlayerPrefsKey, transform.position.x);
+        PlayerPrefs.SetFloat(PosYPlayerPrefsKey, transform.position.y);
         PlayerPrefs.Save();
     }
 
