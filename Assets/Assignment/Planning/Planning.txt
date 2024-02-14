@@ -9,8 +9,56 @@ one commit to the branch. The scenes should run without errors when you are fini
 (even if it doesn’t do much yet). You will merge the branch into main before starting work on the next
 feature.
 
+PseudocodeFeauture.cs (feature here)
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
 
 
 Chosen: Missile Dodging Game -> MissileDodge
 
-Features: player, missiles, missile spawner, missile warning
+Features: player, missiles, missile spawner, missile warning, main menu, hud
+
+Jet.cs (player)
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+Missile.cs
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+MissileSpawner.cs
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+MissileWarning.cs
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+MainMenu.cs
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+HUD.cs (heads-up display, score and such)
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
