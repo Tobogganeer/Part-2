@@ -23,6 +23,7 @@ public class Knight : MonoBehaviour
     bool clickingOnCanvas => EventSystem.current.IsPointerOverGameObject();
 
     const float DestinationDistanceThreshold = 0.05f; // 5cm is close enough
+    static readonly string HealthPlayerPrefsKey = "KnightHealth";
 
     void Start()
     {
@@ -30,9 +31,12 @@ public class Knight : MonoBehaviour
         animator = graphics.GetComponent<Animator>();
         cam = Camera.main; // I know it's cached internally now...
 
-        health = maxHealth;
-
-        UpdateHealthBar();
+        //health = maxHealth;
+        // Load health from prefs
+        health = PlayerPrefs.GetFloat(HealthPlayerPrefsKey, maxHealth);
+        
+        // Set the health, avoiding lerping/smoothing
+        UpdateHealthBar(false);
     }
 
     void Update()
@@ -81,6 +85,13 @@ public class Knight : MonoBehaviour
         clickingOnSelf = false;
     }
 
+    private void OnDestroy()
+    {
+        // Save the health when we are destroyed (called on scene unload)
+        PlayerPrefs.SetFloat(HealthPlayerPrefsKey, health);
+        PlayerPrefs.Save();
+    }
+
     public void Damage(float amount)
     {
         health = Mathf.Clamp(health - amount, 0f, maxHealth);
@@ -92,9 +103,9 @@ public class Knight : MonoBehaviour
 
     public void Heal(float amount) => Damage(-amount);
 
-    void UpdateHealthBar()
+    void UpdateHealthBar(bool lerp = true)
     {
         if (healthBar != null)
-            healthBar.SetFill(health, 0f, maxHealth);
+            healthBar.SetFill(health, 0f, maxHealth, !lerp);
     }
 }
