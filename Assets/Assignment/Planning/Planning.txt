@@ -1,0 +1,16 @@
+Show what the scenes will look like, describe the interaction, and identify the Unity components & script functionality required.
+
+Identify at least three features (distinct chunks of functionality, or steps of the development) of your
+scenes. For each feature, use at least one page (A4 or letter) to describe and problem-solve how to
+achieve this functionality, including pseudocode and diagrams/maths/notes as required.
+
+You will make a branch for each feature, and implement that functionality on this branch, making at least
+one commit to the branch. The scenes should run without errors when you are finished with this feature
+(even if it doesn’t do much yet). You will merge the branch into main before starting work on the next
+feature.
+
+
+
+Chosen: Missile Dodging Game -> MissileDodge
+
+Features: player, missiles, missile spawner, missile warning
