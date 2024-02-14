@@ -31,6 +31,8 @@ public class Knight : MonoBehaviour
         cam = Camera.main; // I know it's cached internally now...
 
         health = maxHealth;
+
+        UpdateHealthBar();
     }
 
     void Update()
@@ -85,9 +87,14 @@ public class Knight : MonoBehaviour
         if (amount > 0f && !dead)
             animator.SetTrigger("damage");
 
-        if (healthBar != null)
-            healthBar.SetFill(health, 0f, maxHealth);
+        UpdateHealthBar();
     }
 
     public void Heal(float amount) => Damage(-amount);
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+            healthBar.SetFill(health, 0f, maxHealth);
+    }
 }
