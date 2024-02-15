@@ -19,6 +19,8 @@ public class Jet : MonoBehaviour
     float boostTimer;
     float boostCooldownTimer;
     Quaternion targetRotation;
+    float lastRotation;
+    float angularVelocity;
 
     static readonly int Anim_AngularVelocity = Animator.StringToHash("rotation");
 
@@ -28,14 +30,15 @@ public class Jet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cam = Camera.main;
+        lastRotation = rb.rotation;
     }
 
     void Update()
     {
+        // Tell the animator what direction we are turning
+        SetAnimatorRotation();
         // Find where we should be turning
         SetTargetRotation();
-        // Tell the animator what direction we are turning
-        animator.SetFloat(Anim_AngularVelocity, rb.angularVelocity);
     }
 
     void SetTargetRotation()
@@ -51,9 +54,17 @@ public class Jet : MonoBehaviour
         targetRotation = Quaternion.Euler(0, 0, angle - 90f);
     }
 
+    void SetAnimatorRotation()
+    {
+        animator.SetFloat(Anim_AngularVelocity, angularVelocity);
+    }
+
     void FixedUpdate()
     {
-        rb.MoveRotation(targetRotation);
+        angularVelocity = (lastRotation - rb.rotation) / Time.deltaTime;
+        rb.MoveRotation(Quaternion.RotateTowards(Quaternion.Euler(0, 0, rb.rotation), targetRotation, angularSpeed * Time.deltaTime));
+        // Set this to detect turn direction
+        lastRotation = rb.rotation;
     }
 }
 
