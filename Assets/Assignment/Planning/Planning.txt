@@ -26,6 +26,7 @@ Jet.cs (player)
 - Has a temporary speed boost on click
 - Turns to face the cursor and flies forward
 - Has limited number of lives
+- By nature of following mouse will never fly too far out of bounds
 - Rigidbody2D (kinematic) for movement and collisions
 - Some kind of 2D collider (maybe capsule)
 - Animator for plane animations (maybe wiggles wings when turning)
@@ -59,46 +60,67 @@ Missile.cs
   - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached)
   - Rotate and move in FixedUpdate
   - Destroy self and plane in OnTriggerEnter2D with plane
-  - void Explode() -> spawns explosion particles and destroys
+  - fn Explode() -> spawns explosion particles and destroys
 
 MissileSpawner.cs
-- Input
-- Functionality
-- Components
+- Activates a missile warning and spawns a missile every few seconds (randomized)
+- Stores a list of spawn areas (boxes) and spawns the missile in a random area of a random box
+- No extra components (empty gameobject)
 - Pseudocode:
-  - Pseudocode here
+  - Variables for missileSpawnTimeRange, spawnTimer, spawnAreas, missileWarningPrefab
+  - Update timer and spawn missile warning if necessary in Update (see below)
+  - fn SpawnMissileWarning() ->
+    - Pick random spawn area
+    - Pick random position from selected area (will be inside screen)
+    - Push position backwards to find missile spawn position
+    - Spawn missile warning at position (in screen), passing it the missile position
+    - Missile warning handles spawn of missile itself
+
+MissileSpawnArea.cs
+- Stores where missile warnings and missiles can be spawned
+- Just a vector2 for the area and a float for how far back missiles should be spawned
+- Pseudocode
+  - Variables for areaSize, missilePushback
+  - fn GetRandomPosition() -> returns random point in area (will be onscreen)
+  - fn GetMissilePosition(spawnPos) -> pushes spawnPos back by missilePushback (will be offscreen)
+  - Draw helpful visuals in OnDrawGizmos
 
 MissileWarning.cs
 - Input
 - Functionality
 - Components
 - Pseudocode:
-  - Pseudocode here
+  - Variables for
+  -
 
 MainMenu.cs
 - Input
 - Functionality
 - Components
 - Pseudocode:
-  - Pseudocode here
+  - Variables for
+  -
 
 HUD.cs (heads-up display, score and such)
 - Input
 - Functionality
 - Components
 - Pseudocode:
-  - Pseudocode here
+  - Variables for
+  -
 
 Score.cs
 - Input
 - Functionality
 - Components
 - Pseudocode:
-  - Pseudocode here
+  - Variables for
+  -
 
 MissileDodgeManager.cs (various housekeeping)
 - Input
 - Functionality
 - Components
 - Pseudocode:
-  - Pseudocode here
+  - Variables for
+  -
