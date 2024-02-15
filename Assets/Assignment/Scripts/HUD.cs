@@ -16,4 +16,14 @@ public class HUD : MonoBehaviour
     {
         
     }
+
+    public static void SetBoostTime(float value01)
+    {
+
+    }
+
+    public static void SetBoostCooldown(float value01)
+    {
+
+    }
 }

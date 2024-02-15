@@ -91,10 +91,14 @@ public class Jet : MonoBehaviour
             float normalizedTime = (boostTime - boostTimer) / boostTime; // Remap timer to be 0-1
             float curveValue = boostCurve.Evaluate(normalizedTime); // Curve goes from 0-1
             multiplier = Mathf.Lerp(1f, boostMultiplier, curveValue);
+            HUD.SetBoostTime(normalizedTime); // Update the HUD bar (going up)
         }
         // Lower the cooldown if necessary
         else if (boostCooldownTimer > 0)
+        {
             boostCooldownTimer -= Time.deltaTime;
+            HUD.SetBoostTime(boostCooldownTimer / boostCooldown); // Update the HUD bar (going down)
+        }
 
         currentBoostMultiplier = multiplier;
     }
@@ -135,9 +139,9 @@ public class Jet : MonoBehaviour
 
 Jet.cs (player)
 - Goes towards cursor location DONE
-- Has a temporary speed boost on click
+- Has a temporary speed boost on click DONE
 - Turns to face the cursor and flies forward DONE
-- Has limited number of lives
+- Has limited number of lives (moved to manager)
 - By nature of following mouse will never fly too far out of bounds DONE
 - Rigidbody2D (kinematic) for movement and collisions DONE
 - Some kind of 2D collider (maybe capsule) DONE
@@ -147,7 +151,7 @@ Jet.cs (player)
   - (cont'd) rigidbody, targetRotation, animator DONE
   - Gather references to components in Start DONE
   - Update target rotation and animator in Update DONE
-  - (cont'd) Check for boost in Update and update HUD
+  - (cont'd) Check for boost in Update and update HUD DONE
   - Rotate and move in FixedUpdate DONE
   - Let Manager know when this is destroyed DONE
 
