@@ -32,13 +32,12 @@ Jet.cs (player)
 - Animator for plane animations (maybe wiggles wings when turning)
 - Pseudocode:
   - Variables for speed, angularSpeed, boostTime, boostCurve, boostCooldown, boostTimer,
-  - (cont'd) rigidbody, targetRotation, animator, lives
+  - (cont'd) rigidbody, targetRotation, animator
   - Gather references to components in Start
   - Update target rotation and animator in Update
   - (cont'd) Check for boost in Update and update HUD
   - Rotate and move in FixedUpdate
-  - Subtract life on destroy and respawn plane after a few seconds
-  - End game if zero lives left
+  - Let Manager know when this is destroyed
 
 Missile.cs
 - Spawned outside of screen
@@ -108,7 +107,7 @@ HUD.cs (heads-up display, score and such)
 - Manages the UI like score, lives, etc
 - No components in and of itself
 - Pseudocode:
-  - Variables for livesText, scoreText, highScoreText, missilesDodgedText etc if i think of more, singleton
+  - Variables for livesText, scoreText, highScoreText, missilesDodgedText etc, playerRespawnText, singleton
   - Stores singleton in Awake
   - static fns for SetScore, SetMissileDodges, SetLives, etc which update UI elements
 
@@ -123,9 +122,10 @@ Score.cs
   - static fns for IncreaseScore, OnLifeLost, OnMissileDodged, etc
 
 MissileDodgeManager.cs (various housekeeping)
-- Input
-- Functionality
-- Components
+- Respawns player, forces game end, manages game flow
 - Pseudocode:
-  - Variables for
-  -
+  - Variables for playerPrefab, lives, respawnTime, respawnTimer, isPlaneAlive
+  - fn OnPlaneDestroyed() -> sets timer and isPlaneAlive bool, decreases lives
+  - Update respawn timer and corresponding text in Update
+  - (cont'd) respawn plane near middle of world when timer has elapsed and lives > 0
+  - Show game over text and force exit to main menu if lives <= 0
