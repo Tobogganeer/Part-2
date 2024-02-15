@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Plane
   - ProximitySensor
+  - Jet
+  - Missile
   layers:
   - Default
   - TransparentFX
