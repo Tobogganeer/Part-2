@@ -19,7 +19,7 @@ PseudocodeFeauture.cs (feature here)
 
 Chosen: Missile Dodging Game -> MissileDodge
 
-Features: player, missiles, missile spawner, missile warning, main menu, hud, score, missile dodge manager
+Features: player, missiles, missile spawner, missile warning, scene button, hud, score, missile dodge manager
 
 Jet.cs (player)
 - Goes towards cursor location
@@ -97,13 +97,12 @@ MissileWarning.cs
   - fn Spawn() -> does the above (spawns missile and destroys self)
   - fn Init(spawnPos) -> sets the missile spawn position
 
-MainMenu.cs
-- Input
-- Functionality
-- Components
+SceneButton.cs
+- Just contains functions used by buttons to load scenes
+- Used in main menu and game
 - Pseudocode:
-  - Variables for
-  -
+  - Variable for scene name
+  - fn Load() -> loads the desired scene
 
 HUD.cs (heads-up display, score and such)
 - Input
