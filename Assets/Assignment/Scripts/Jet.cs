@@ -14,21 +14,44 @@ public class Jet : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
+    Camera cam;
 
     float boostTimer;
     float boostCooldownTimer;
     Quaternion targetRotation;
 
+    static readonly int Anim_AngularVelocity = Animator.StringToHash("rotation");
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        cam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        // Find where we should be turning
+        SetTargetRotation();
+        // Tell the animator what direction we are turning
+        animator.SetFloat(Anim_AngularVelocity, rb.angularVelocity);
+    }
+
+    void SetTargetRotation()
+    {
+        Vector3 cursorPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        cursorPosition.z = 0; // Make it 2D
+
+        // Direction from us to the mouse
+        Vector2 direction = cursorPosition - transform.position;
+        // Angle from us to the mouse (in degrees)
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Where we want to be headed (convert to unity coord system)
+        targetRotation = Quaternion.Euler(0, 0, angle - 90f);
+    }
+
+    void FixedUpdate()
     {
         
     }
