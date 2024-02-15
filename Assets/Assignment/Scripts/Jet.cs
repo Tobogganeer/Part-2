@@ -53,7 +53,7 @@ public class Jet : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        rb.MoveRotation(targetRotation);
     }
 }
 
