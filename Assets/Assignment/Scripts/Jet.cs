@@ -62,7 +62,8 @@ public class Jet : MonoBehaviour
     void FixedUpdate()
     {
         angularVelocity = (lastRotation - rb.rotation) / Time.deltaTime;
-        rb.MoveRotation(Quaternion.RotateTowards(Quaternion.Euler(0, 0, rb.rotation), targetRotation, angularSpeed * Time.deltaTime));
+        rb.MoveRotation(Quaternion.Slerp(Quaternion.Euler(0, 0, rb.rotation), targetRotation, 3f * Time.deltaTime));
+        rb.MovePosition(rb.position + (Vector2)transform.up * Time.deltaTime * speed);
         // Set this to detect turn direction
         lastRotation = rb.rotation;
     }
