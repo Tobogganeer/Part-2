@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Jet : MonoBehaviour
@@ -20,8 +21,11 @@ public class Jet : MonoBehaviour
 
     float boostTimer;
     float boostCooldownTimer;
+    float currentBoostMultiplier;
+
     Quaternion targetRotation;
     Vector2 velocity;
+
     float lastRotation;
     float angularVelocity;
 
@@ -42,6 +46,10 @@ public class Jet : MonoBehaviour
         SetAnimatorRotation();
         // Find where we should be turning
         SetTargetRotation();
+        // Update the boost
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            TryStartBoost();
+        ApplyBoost();
     }
 
     void SetTargetRotation()
@@ -62,6 +70,36 @@ public class Jet : MonoBehaviour
         animator.SetFloat(Anim_AngularVelocity, angularVelocity);
     }
 
+    void TryStartBoost()
+    {
+        if (boostTimer <= 0 && boostCooldownTimer <= 0)
+        {
+            // Reset the two timers
+            boostTimer = boostTime;
+            boostCooldownTimer = boostCooldown;
+        }
+    }
+
+    void ApplyBoost()
+    {
+        float multiplier = 1f;
+
+        // Check if we are boosting currently
+        if (boostTimer > 0)
+        {
+            boostTimer -= Time.deltaTime;
+            float normalizedTime = (boostTime - boostTimer) / boostTime; // Remap timer to be 0-1
+            float curveValue = boostCurve.Evaluate(normalizedTime); // Curve goes from 0-1
+            multiplier = Mathf.Lerp(1f, boostMultiplier, curveValue);
+        }
+        // Lower the cooldown if necessary
+        else if (boostCooldownTimer > 0)
+            boostCooldownTimer -= Time.deltaTime;
+
+        currentBoostMultiplier = multiplier;
+    }
+
+
     void FixedUpdate()
     {
         angularVelocity = (lastRotation - rb.rotation) / Time.deltaTime;
@@ -74,15 +112,15 @@ public class Jet : MonoBehaviour
     void Rotate()
     {
         Quaternion currentRotation = Quaternion.Euler(0, 0, rb.rotation);
-        // TODO: Account for boost
-        Quaternion smoothedRotation = Quaternion.Slerp(currentRotation, targetRotation, turnSpeed * Time.deltaTime);
+        float t = turnSpeed * currentBoostMultiplier * Time.deltaTime;
+        Quaternion smoothedRotation = Quaternion.Slerp(currentRotation, targetRotation, t);
         rb.MoveRotation(smoothedRotation);
     }
 
     void Move()
     {
         // The jet wants to keep going forward
-        velocity = Vector2.Lerp(velocity, transform.up * speed, acceleration * Time.deltaTime);
+        velocity = Vector2.Lerp(velocity, transform.up * speed * currentBoostMultiplier, acceleration * Time.deltaTime);
         // TODO: Account for boost
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }

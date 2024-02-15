@@ -339,11 +339,29 @@ MonoBehaviour:
   speed: 4
   turnSpeed: 3
   acceleration: 5
-  boostTime: 2
+  boostTime: 3
   boostMultiplier: 2
   boostCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.6306024
+      outSlope: 6.6306024
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.031951778
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.26841116
+      outSlope: -0.26841116
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07029486
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
