@@ -86,26 +86,31 @@ public class Jet : MonoBehaviour
         // TODO: Account for boost
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }
+
+    void OnDestroy()
+    {
+        MissileDodgeManager.OnPlaneDestroyed();
+    }
 }
 
 /*
 
 Jet.cs (player)
-- Goes towards cursor location
+- Goes towards cursor location DONE
 - Has a temporary speed boost on click
-- Turns to face the cursor and flies forward
+- Turns to face the cursor and flies forward DONE
 - Has limited number of lives
-- By nature of following mouse will never fly too far out of bounds
-- Rigidbody2D (kinematic) for movement and collisions
-- Some kind of 2D collider (maybe capsule)
-- Animator for plane animations (maybe wiggles wings when turning)
+- By nature of following mouse will never fly too far out of bounds DONE
+- Rigidbody2D (kinematic) for movement and collisions DONE
+- Some kind of 2D collider (maybe capsule) DONE
+- Animator for plane animations (maybe wiggles wings when turning) DONE
 - Pseudocode:
-  - Variables for speed, angularSpeed, boostTime, boostCurve, boostCooldown, boostTimer,
-  - (cont'd) rigidbody, targetRotation, animator
-  - Gather references to components in Start
-  - Update target rotation and animator in Update
+  - Variables for speed, angularSpeed, boostTime, boostCurve, boostCooldown, boostTimer, DONE
+  - (cont'd) rigidbody, targetRotation, animator DONE
+  - Gather references to components in Start DONE
+  - Update target rotation and animator in Update DONE
   - (cont'd) Check for boost in Update and update HUD
-  - Rotate and move in FixedUpdate
-  - Let Manager know when this is destroyed
+  - Rotate and move in FixedUpdate DONE
+  - Let Manager know when this is destroyed DONE
 
 */
