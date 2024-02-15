@@ -16,4 +16,9 @@ public class Score : MonoBehaviour
     {
         
     }
+
+    public static void OnMissileDodged()
+    {
+        // TODO: Functionality (no exceptions for now)
+    }
 }

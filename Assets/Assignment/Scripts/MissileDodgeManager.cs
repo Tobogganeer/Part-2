@@ -15,4 +15,9 @@ public class MissileDodgeManager : MonoBehaviour
     {
         
     }
+
+    public static void OnPlaneDestroyed()
+    {
+        // TODO: Functionality (no exceptions for now)
+    }
 }
