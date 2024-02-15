@@ -19,29 +19,47 @@ PseudocodeFeauture.cs (feature here)
 
 Chosen: Missile Dodging Game -> MissileDodge
 
-Features: player, missiles, missile spawner, missile warning, main menu, hud
+Features: player, missiles, missile spawner, missile warning, main menu, hud, score, missile dodge manager
 
 Jet.cs (player)
 - Goes towards cursor location
 - Has a temporary speed boost on click
 - Turns to face the cursor and flies forward
+- Has limited number of lives
 - Rigidbody2D (kinematic) for movement and collisions
 - Some kind of 2D collider (maybe capsule)
 - Animator for plane animations (maybe wiggles wings when turning)
 - Pseudocode:
   - Variables for speed, angularSpeed, boostTime, boostCurve, boostCooldown, boostTimer,
-  - (cont'd) rigidbody, targetRotation, animator
+  - (cont'd) rigidbody, targetRotation, animator, lives
   - Gather references to components in Start
   - Update target rotation and animator in Update
   - (cont'd) Check for boost in Update and update HUD
   - Rotate and move in FixedUpdate
+  - Subtract life on destroy and respawn plane after a few seconds
+  - End game if zero lives left
 
 Missile.cs
-- Input
-- Functionality
-- Components
+- Spawned outside of screen
+- Tracks towards where plane will be (predicts position)
+- Turns slowly (can be out-maneuvered)
+- Gains speed over time before exploding after some time
+- Spawns explosion effect when blowing up (due to plane or time fuse)
+- Destroys plane (and self) on collision
+- Rigidbody2D for movement
+- Animator for smoke and boost animations
+- Collider used to detect crash
 - Pseudocode:
-  - Pseudocode here
+  - Variables for speed, angularSpeed, velocityCurve, maxLifetime, lifetime,
+  - (cont'd) rigidbody, targetRotation, plane, animator, explosionPrefab (overall very similar to plane)
+  - ^^^ Maybe missile and plane will inherit from common base class (or composition smth)
+  - Gather references to components and plane in Start
+  - (cont'd) Update 'missiles spawned' count of HUD/Manager
+  - Predict plane position and update target rotation in Update
+  - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached)
+  - Rotate and move in FixedUpdate
+  - Destroy self and plane in OnTriggerEnter2D with plane
+  - void Explode() -> spawns explosion particles and destroys
 
 MissileSpawner.cs
 - Input
@@ -65,6 +83,20 @@ MainMenu.cs
   - Pseudocode here
 
 HUD.cs (heads-up display, score and such)
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+Score.cs
+- Input
+- Functionality
+- Components
+- Pseudocode:
+  - Pseudocode here
+
+MissileDodgeManager.cs (various housekeeping)
 - Input
 - Functionality
 - Components
