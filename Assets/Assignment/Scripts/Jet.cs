@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Jet : MonoBehaviour
 {
-    public float speed = 3f;
-    public float angularSpeed = 180f;
+    public float speed = 4f;
+    public float turnSpeed = 3f;
+    public float acceleration = 5f;
 
     [Space]
     public float boostTime = 2f;
+    public float boostMultiplier = 2f;
     public AnimationCurve boostCurve;
     public float boostCooldown = 6.5f;
 
@@ -19,6 +21,7 @@ public class Jet : MonoBehaviour
     float boostTimer;
     float boostCooldownTimer;
     Quaternion targetRotation;
+    Vector2 velocity;
     float lastRotation;
     float angularVelocity;
 
@@ -62,10 +65,26 @@ public class Jet : MonoBehaviour
     void FixedUpdate()
     {
         angularVelocity = (lastRotation - rb.rotation) / Time.deltaTime;
-        rb.MoveRotation(Quaternion.Slerp(Quaternion.Euler(0, 0, rb.rotation), targetRotation, 3f * Time.deltaTime));
-        rb.MovePosition(rb.position + (Vector2)transform.up * Time.deltaTime * speed);
+        Rotate();
+        Move();
         // Set this to detect turn direction
         lastRotation = rb.rotation;
+    }
+
+    void Rotate()
+    {
+        Quaternion currentRotation = Quaternion.Euler(0, 0, rb.rotation);
+        // TODO: Account for boost
+        Quaternion smoothedRotation = Quaternion.Slerp(currentRotation, targetRotation, turnSpeed * Time.deltaTime);
+        rb.MoveRotation(smoothedRotation);
+    }
+
+    void Move()
+    {
+        // The jet wants to keep going forward
+        velocity = Vector2.Lerp(velocity, transform.up * speed, acceleration * Time.deltaTime);
+        // TODO: Account for boost
+        rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }
 }
 

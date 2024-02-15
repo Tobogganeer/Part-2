@@ -336,9 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaaeb50d169bbd741baafe0a903ee7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  angularSpeed: 180
+  speed: 4
+  turnSpeed: 3
+  acceleration: 5
   boostTime: 2
+  boostMultiplier: 2
   boostCurve:
     serializedVersion: 2
     m_Curve: []
