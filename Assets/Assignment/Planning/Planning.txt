@@ -22,11 +22,19 @@ Chosen: Missile Dodging Game -> MissileDodge
 Features: player, missiles, missile spawner, missile warning, main menu, hud
 
 Jet.cs (player)
-- Input
-- Functionality
-- Components
+- Goes towards cursor location
+- Has a temporary speed boost on click
+- Turns to face the cursor and flies forward
+- Rigidbody2D (kinematic) for movement and collisions
+- Some kind of 2D collider (maybe capsule)
+- Animator for plane animations (maybe wiggles wings when turning)
 - Pseudocode:
-  - Pseudocode here
+  - Variables for speed, angularSpeed, boostTime, boostCurve, boostCooldown, boostTimer,
+  - (cont'd) rigidbody, targetRotation, animator
+  - Gather references to components in Start
+  - Update target rotation and animator in Update
+  - (cont'd) Check for boost in Update and update HUD
+  - Rotate and move in FixedUpdate
 
 Missile.cs
 - Input
