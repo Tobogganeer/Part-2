@@ -60,7 +60,7 @@ Missile.cs
   - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached)
   - Rotate and move in FixedUpdate
   - Destroy self and plane in OnTriggerEnter2D with plane
-  - fn Explode() -> spawns explosion particles and destroys
+  - fn Explode() -> spawns explosion particles and destroys self, updates missiles dodged score
 
 MissileSpawner.cs
 - Activates a missile warning and spawns a missile every few seconds (randomized)
@@ -105,20 +105,22 @@ SceneButton.cs
   - fn Load() -> loads the desired scene
 
 HUD.cs (heads-up display, score and such)
-- Input
-- Functionality
-- Components
+- Manages the UI like score, lives, etc
+- No components in and of itself
 - Pseudocode:
-  - Variables for
-  -
+  - Variables for livesText, scoreText, highScoreText, missilesDodgedText etc if i think of more, singleton
+  - Stores singleton in Awake
+  - static fns for SetScore, SetMissileDodges, SetLives, etc which update UI elements
 
 Score.cs
-- Input
-- Functionality
-- Components
+- Saves and loads high scores upon start and end of scene
+- Functions for updating scores which updates the relevant UI
 - Pseudocode:
-  - Variables for
-  -
+  - Variables for various scores (see above), singleton
+  - Stores singleton in Awake
+  - Loads any saved values in Start and updates HUD
+  - Saves values in OnDestroy
+  - static fns for IncreaseScore, OnLifeLost, OnMissileDodged, etc
 
 MissileDodgeManager.cs (various housekeeping)
 - Input
