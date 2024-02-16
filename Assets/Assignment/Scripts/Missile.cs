@@ -34,6 +34,7 @@ public class Missile : MonoBehaviour
 
         // The clock is ticking for these missiles
         lifetime = maxLifetime;
+        currentSpeedMultiplier = 1f;
     }
 
     void Update()
@@ -55,7 +56,7 @@ public class Missile : MonoBehaviour
 
         Vector2 displacement = jetPos - (Vector2)transform.position;
         // Will not take future speed into account! I want to be a bit inaccurate...
-        float timeToArrival = displacement.magnitude / speed * currentSpeedMultiplier;
+        float timeToArrival = displacement.magnitude / (speed * currentSpeedMultiplier);
         predictedImpactPoint = jetPos + jetVelocity * (timeToArrival * leadTimeMultiplier);
     }
 
