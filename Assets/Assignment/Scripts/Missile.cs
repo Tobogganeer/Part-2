@@ -127,15 +127,22 @@ public class Missile : MonoBehaviour
         if (MissileDodgeManager.JetAlive)
             Score.OnMissileDodged();
     }
+
+    // Make the missile turn and predict a bit better
+    public void MultiplyDifficulty(float multiplier)
+    {
+        turnDegreesPerSecond *= multiplier;
+        leadTimeMultiplier *= multiplier / 2f;
+    }
 }
 
 /*
 
 Missile.cs
-- Spawned outside of screen
-- Tracks towards where plane will be (predicts position)
-- Turns slowly (can be out-maneuvered)
-- Gains speed over time before exploding after some time
+- Spawned outside of screen WILL BE DONE
+- Tracks towards where plane will be (predicts position) DONE
+- Turns slowly (can be out-maneuvered) DONE
+- Gains speed over time before exploding after some time DONE
 - Spawns explosion effect when blowing up (due to plane or time fuse) DONE
 - Destroys plane (and self) on collision DONE
 - Rigidbody2D for movement DONE
@@ -148,8 +155,8 @@ Missile.cs
   - Gather references to components and plane in Start DONE
   - (cont'd) Update 'missiles spawned' count of HUD/Manager DONE(ish)
   - Predict plane position and update target rotation in Update
-  - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached)
-  - Rotate and move in FixedUpdate
+  - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached) DONE
+  - Rotate and move in FixedUpdate DONE
   - Destroy self and plane in OnTriggerEnter2D with plane DONE
   - fn Explode() -> spawns explosion particles and destroys self, updates missiles dodged score DONE
 
