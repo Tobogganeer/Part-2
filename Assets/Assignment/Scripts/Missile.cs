@@ -7,6 +7,7 @@ public class Missile : MonoBehaviour
     public float speed = 4f;
     public float turnDegreesPerSecond = 180f;
     public float acceleration = 5f;
+    public float leadTimeMultiplier = 1.2f; // Makes the missile predict positions a bit further
 
     [Space]
     public float maxLifetime = 2f;
@@ -23,7 +24,7 @@ public class Missile : MonoBehaviour
 
     Quaternion targetRotation;
     Vector2 velocity;
-    Vector3 predictedImpactPoint;
+    Vector2 predictedImpactPoint;
 
     static readonly string Tag_Jet = "Jet";
 
@@ -47,15 +48,21 @@ public class Missile : MonoBehaviour
 
     void CalculateImpactPoint()
     {
-        // TODO: Implement
-        if (MissileDodgeManager.JetAlive)
-            predictedImpactPoint = MissileDodgeManager.CurrentJet.transform.position;
+        if (!MissileDodgeManager.JetAlive)
+            return;
+        Vector2 jetPos = MissileDodgeManager.CurrentJet.transform.position;
+        Vector2 jetVelocity = MissileDodgeManager.CurrentJet.Velocity;
+
+        Vector2 displacement = jetPos - (Vector2)transform.position;
+        // Will not take future speed into account! I want to be a bit inaccurate...
+        float timeToArrival = displacement.magnitude / speed * currentSpeedMultiplier;
+        predictedImpactPoint = jetPos + jetVelocity * (timeToArrival * leadTimeMultiplier);
     }
 
     void SetTargetRotation()
     {
         // Direction from us to the impact point
-        Vector2 direction = predictedImpactPoint - transform.position;
+        Vector2 direction = predictedImpactPoint - (Vector2)transform.position;
         // Angle from us to the point (in degrees)
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         // Where we want to be headed (convert to unity coord system)

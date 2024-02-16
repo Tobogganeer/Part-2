@@ -357,6 +357,7 @@ MonoBehaviour:
   speed: 3
   turnDegreesPerSecond: 120
   acceleration: 10
+  leadTimeMultiplier: 1
   maxLifetime: 3
   velocityMultiplier: 4
   velocityOverLifetime:
@@ -445,7 +446,7 @@ Transform:
   m_GameObject: {fileID: 1423659276}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: -4.44, z: 0}
+  m_LocalPosition: {x: -8.49, y: -4.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

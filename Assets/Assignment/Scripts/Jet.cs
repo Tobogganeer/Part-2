@@ -16,6 +16,7 @@ public class Jet : MonoBehaviour
     public float boostCooldown = 6.5f;
 
     public bool IsBoosting => boostTimer > 0;
+    public Vector2 Velocity => velocity;
 
     Rigidbody2D rb;
     Animator animator;
