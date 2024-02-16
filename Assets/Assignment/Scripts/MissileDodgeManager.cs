@@ -5,7 +5,8 @@ using UnityEngine;
 public class MissileDodgeManager : MonoBehaviour
 {
     public static MissileDodgeManager instance;
-    
+
+    public GameObject jetPrefab;
     Jet currentJet;
 
     public static Jet CurrentJet => instance.currentJet;
@@ -16,8 +17,18 @@ public class MissileDodgeManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        SpawnJet();
+    }
+
     public static void OnPlaneDestroyed()
     {
         // TODO: Functionality (no exceptions for now)
+    }
+
+    void SpawnJet()
+    {
+        currentJet = Instantiate(jetPrefab, Vector3.zero, Quaternion.identity).GetComponent<Jet>();
     }
 }
