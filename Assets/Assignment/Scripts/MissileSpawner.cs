@@ -15,7 +15,7 @@ public class MissileSpawner : MonoBehaviour
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0 && MissileDodgeManager.JetAlive)
         {
-            spawnTimer = Random.Range(spawnTimeRange.x, spawnTimeRange.y);)
+            spawnTimer = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
             SpawnMissileWarning();
         }
     }
