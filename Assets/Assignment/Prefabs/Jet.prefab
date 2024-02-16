@@ -104,33 +104,42 @@ MonoBehaviour:
   speed: 4
   turnSpeed: 3
   acceleration: 5
-  boostTime: 3
-  boostMultiplier: 2.5
+  boostTime: 1
+  boostMultiplier: 3
   boostCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0.0023498535
-      inSlope: 5.5840654
-      outSlope: 5.5840654
+      inSlope: 11.441583
+      outSlope: 11.441583
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.02154195
+      outWeight: 0.051159184
+    - serializedVersion: 3
+      time: 0.17873639
+      value: 0.89070666
+      inSlope: 0.21852876
+      outSlope: 0.21852876
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2109423
+      outWeight: 0.08332176
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -1.9383544
-      outSlope: -1.9383544
+      inSlope: -4.9267483
+      outSlope: -4.9267483
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.049886703
+      inWeight: 0.026230326
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  boostCooldown: 5
+  boostCooldown: 3
 --- !u!95 &1252736917562324055
 Animator:
   serializedVersion: 5

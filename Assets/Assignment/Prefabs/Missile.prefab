@@ -102,10 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  turnDegreesPerSecond: 110
-  acceleration: 10
-  leadTimeMultiplier: 1
-  maxLifetime: 3
+  turnDegreesPerSecond: 100
+  acceleration: 4
+  leadTimeMultiplier: 0.9
+  maxLifetime: 4.5
   velocityMultiplier: 4
   velocityOverLifetime:
     serializedVersion: 2
