@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class MissileWarning : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float warningTime;
+    public GameObject missilePrefab;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Vector2 missileSpawnPos;
+    float timer;
 
+    // Called when spawned by MissileSpawner, essentially Start()
     public void Init(Vector2 missileSpawnPos)
     {
-
+        this.missileSpawnPos = missileSpawnPos;
+        timer = warningTime;
     }
 }
 
