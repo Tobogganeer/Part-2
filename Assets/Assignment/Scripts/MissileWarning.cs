@@ -16,6 +16,31 @@ public class MissileWarning : MonoBehaviour
         this.missileSpawnPos = missileSpawnPos;
         timer = warningTime;
     }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            Spawn();
+        }
+    }
+
+    void Spawn()
+    {
+        Vector2 targetPosition = Vector2.zero;
+        // Spawn facing the plane if it's alive
+        if (MissileDodgeManager.JetAlive)
+            targetPosition = MissileDodgeManager.CurrentJet.transform.position;
+
+        // Seen this code a million times already
+        Vector2 targetDir = targetPosition - missileSpawnPos;
+        float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+        Quaternion spawnRot = Quaternion.Euler(0, 0, targetAngle - 90f);
+
+        Instantiate(missilePrefab, missileSpawnPos, spawnRot);
+        Destroy(gameObject);
+    }
 }
 
 /*
