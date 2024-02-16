@@ -12,6 +12,16 @@ public class SceneButton : MonoBehaviour
         // The most complicated script ever written
         SceneManager.LoadScene(sceneName);
     }
+
+    public void Exit()
+    {
+        // Stop playing if in editor
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
 
 /*
