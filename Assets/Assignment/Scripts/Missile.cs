@@ -14,31 +14,107 @@ public class Missile : MonoBehaviour
     public AnimationCurve velocityOverLifetime;
 
     Rigidbody2D rb;
-    Animator animator;
 
     float lifetime;
     float currentSpeedMultiplier;
 
     Quaternion targetRotation;
     Vector2 velocity;
+    Vector2 predictedImpactPoint;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
 
         // The clock is ticking for these missiles
         lifetime = maxLifetime;
     }
 
-    private void Update()
+    void Update()
     {
-        
+        // Predict where the jet will be
+        CalculateImpactPoint();
+        // Turn towards said point
+        SetTargetRotation();
+        // Tick the clock (updates speed)
+        UpdateLifetime();
     }
 
-    private void FixedUpdate()
+    void CalculateImpactPoint()
     {
-        
+        // TODO: Implement
+    }
+
+    void SetTargetRotation()
+    {
+        /*
+        Vector3 cursorPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        cursorPosition.z = 0; // Make it 2D
+
+        // Direction from us to the mouse
+        Vector2 direction = cursorPosition - transform.position;
+        // Angle from us to the mouse (in degrees)
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Where we want to be headed (convert to unity coord system)
+        targetRotation = Quaternion.Euler(0, 0, angle - 90f);
+        */
+    }
+
+    void UpdateLifetime()
+    {
+        /*
+        float multiplier = 1f;
+
+        // Check if we are boosting currently
+        if (IsBoosting)
+        {
+            boostTimer -= Time.deltaTime;
+            float normalizedTime = (boostTime - boostTimer) / boostTime; // Remap timer to be 0-1
+            float curveValue = boostCurve.Evaluate(normalizedTime); // Curve goes from 0-1
+            multiplier = Mathf.Lerp(1f, boostMultiplier, curveValue);
+            HUD.SetBoostTime(normalizedTime); // Update the HUD bar (going up)
+        }
+        // Lower the cooldown if necessary
+        else if (boostCooldownTimer > 0)
+        {
+            boostCooldownTimer -= Time.deltaTime;
+            HUD.SetBoostTime(boostCooldownTimer / boostCooldown); // Update the HUD bar (going down)
+        }
+
+        currentBoostMultiplier = multiplier;
+        */
+    }
+
+
+    void FixedUpdate()
+    {
+        Rotate();
+        Move();
+    }
+
+    void Rotate()
+    {
+        /*
+        Quaternion currentRotation = Quaternion.Euler(0, 0, rb.rotation);
+        float t = turnSpeed * currentBoostMultiplier * Time.deltaTime;
+        Quaternion smoothedRotation = Quaternion.Slerp(currentRotation, targetRotation, t);
+        rb.MoveRotation(smoothedRotation);
+        */
+    }
+
+    void Move()
+    {
+        /*
+        // The jet wants to keep going forward
+        velocity = Vector2.Lerp(velocity, transform.up * speed * currentBoostMultiplier, acceleration * Time.deltaTime);
+        // TODO: Account for boost
+        rb.MovePosition(rb.position + velocity * Time.deltaTime);
+        */
+    }
+
+    void OnDestroy()
+    {
+        //MissileDodgeManager.OnPlaneDestroyed();
     }
 }
 
