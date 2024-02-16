@@ -100,7 +100,7 @@ public class Jet : MonoBehaviour
         else if (boostCooldownTimer > 0)
         {
             boostCooldownTimer -= Time.deltaTime;
-            HUD.SetBoostTime(boostCooldownTimer / boostCooldown); // Update the HUD bar (going down)
+            HUD.SetBoostCooldown(boostCooldownTimer / boostCooldown); // Update the HUD bar (going down)
         }
 
         currentBoostMultiplier = multiplier;
