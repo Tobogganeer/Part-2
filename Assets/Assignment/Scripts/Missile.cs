@@ -5,7 +5,7 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     public float speed = 4f;
-    public float turnSpeed = 180f;
+    public float turnDegreesPerSecond = 180f;
     public float acceleration = 5f;
 
     [Space]
@@ -71,33 +71,12 @@ public class Missile : MonoBehaviour
         if (lifetime <= 0)
         {
             Explode();
-        }
-        else
-        {
-
+            return;
         }
 
-        /*
-        float multiplier = 1f;
-
-        // Check if we are boosting currently
-        if (IsBoosting)
-        {
-            boostTimer -= Time.deltaTime;
-            float normalizedTime = (boostTime - boostTimer) / boostTime; // Remap timer to be 0-1
-            float curveValue = boostCurve.Evaluate(normalizedTime); // Curve goes from 0-1
-            multiplier = Mathf.Lerp(1f, boostMultiplier, curveValue);
-            HUD.SetBoostTime(normalizedTime); // Update the HUD bar (going up)
-        }
-        // Lower the cooldown if necessary
-        else if (boostCooldownTimer > 0)
-        {
-            boostCooldownTimer -= Time.deltaTime;
-            HUD.SetBoostTime(boostCooldownTimer / boostCooldown); // Update the HUD bar (going down)
-        }
-
-        currentBoostMultiplier = multiplier;
-        */
+        float normalizedLifetime = (maxLifetime - lifetime) / maxLifetime; // Remap lifetime to be 0-1
+        float curveValue = velocityOverLifetime.Evaluate(normalizedLifetime); // Curve goes from 0-1
+        currentSpeedMultiplier = Mathf.Lerp(1f, velocityMultiplier, curveValue); // Set current speed
     }
 
 
@@ -109,22 +88,19 @@ public class Missile : MonoBehaviour
 
     void Rotate()
     {
-        /*
         Quaternion currentRotation = Quaternion.Euler(0, 0, rb.rotation);
-        float t = turnSpeed * currentBoostMultiplier * Time.deltaTime;
-        Quaternion smoothedRotation = Quaternion.Slerp(currentRotation, targetRotation, t);
-        rb.MoveRotation(smoothedRotation);
-        */
+        float t = turnDegreesPerSecond * Time.deltaTime; // Maybe multiply by speed multiplier?
+        // Unlike the jet, we rotate linearly instead
+        Quaternion updatedRotation = Quaternion.RotateTowards(currentRotation, targetRotation, t);
+        rb.MoveRotation(updatedRotation);
     }
 
     void Move()
     {
-        /*
-        // The jet wants to keep going forward
-        velocity = Vector2.Lerp(velocity, transform.up * speed * currentBoostMultiplier, acceleration * Time.deltaTime);
-        // TODO: Account for boost
+        // We accelerate forward instead of instantly changing velocity to go forward
+        velocity = Vector2.Lerp(velocity, transform.up * speed * currentSpeedMultiplier, acceleration * Time.deltaTime);
+        // Actually move
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
-        */
     }
 
     private void OnTriggerEnter2D(Collider2D otherObj)
@@ -155,21 +131,21 @@ Missile.cs
 - Tracks towards where plane will be (predicts position)
 - Turns slowly (can be out-maneuvered)
 - Gains speed over time before exploding after some time
-- Spawns explosion effect when blowing up (due to plane or time fuse)
-- Destroys plane (and self) on collision
-- Rigidbody2D for movement
-- Animator for smoke and boost animations
-- Collider used to detect crash
+- Spawns explosion effect when blowing up (due to plane or time fuse) DONE
+- Destroys plane (and self) on collision DONE
+- Rigidbody2D for movement DONE
+- Animator for smoke and boost animations DONE
+- Collider used to detect crash DONE
 - Pseudocode:
-  - Variables for speed, angularSpeed, velocityCurve, maxLifetime, lifetime,
-  - (cont'd) rigidbody, targetRotation, plane, animator, explosionPrefab (overall very similar to plane)
-  - ^^^ Maybe missile and plane will inherit from common base class (or composition smth)
-  - Gather references to components and plane in Start
-  - (cont'd) Update 'missiles spawned' count of HUD/Manager
+  - Variables for speed, angularSpeed, velocityCurve, maxLifetime, lifetime, DONE
+  - (cont'd) rigidbody, targetRotation, plane, animator, explosionPrefab (overall very similar to plane) DONE
+  - ^^^ Maybe missile and plane will inherit from common base class (or composition smth) NAH
+  - Gather references to components and plane in Start DONE
+  - (cont'd) Update 'missiles spawned' count of HUD/Manager DONE(ish)
   - Predict plane position and update target rotation in Update
   - (con't) Increment lifetime and update speeds accordingly (Destroy if max lifetime reached)
   - Rotate and move in FixedUpdate
-  - Destroy self and plane in OnTriggerEnter2D with plane
-  - fn Explode() -> spawns explosion particles and destroys self, updates missiles dodged score
+  - Destroy self and plane in OnTriggerEnter2D with plane DONE
+  - fn Explode() -> spawns explosion particles and destroys self, updates missiles dodged score DONE
 
 */
