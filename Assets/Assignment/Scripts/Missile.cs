@@ -25,6 +25,8 @@ public class Missile : MonoBehaviour
     Vector2 velocity;
     Vector2 predictedImpactPoint;
 
+    static readonly string Tag_Jet = "Jet";
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -65,6 +67,16 @@ public class Missile : MonoBehaviour
 
     void UpdateLifetime()
     {
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0)
+        {
+            Explode();
+        }
+        else
+        {
+
+        }
+
         /*
         float multiplier = 1f;
 
@@ -115,9 +127,14 @@ public class Missile : MonoBehaviour
         */
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D otherObj)
     {
-        
+        // Crashed into a jet (we did our job!)
+        if (otherObj.CompareTag(Tag_Jet))
+        {
+            Explode();
+            Destroy(otherObj.gameObject);
+        }
     }
 
     public void Explode()
