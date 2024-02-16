@@ -15,6 +15,8 @@ public class Jet : MonoBehaviour
     public AnimationCurve boostCurve;
     public float boostCooldown = 6.5f;
 
+    public bool IsBoosting => boostTimer > 0;
+
     Rigidbody2D rb;
     Animator animator;
     Camera cam;
@@ -85,7 +87,7 @@ public class Jet : MonoBehaviour
         float multiplier = 1f;
 
         // Check if we are boosting currently
-        if (boostTimer > 0)
+        if (IsBoosting)
         {
             boostTimer -= Time.deltaTime;
             float normalizedTime = (boostTime - boostTimer) / boostTime; // Remap timer to be 0-1
