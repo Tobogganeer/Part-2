@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class MissileSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector2 spawnTimeRange = new Vector2(2f, 6.5f);
+    public List<MissileSpawnArea> spawnAreas;
+    public GameObject missileWarningPrefab;
 
-    // Update is called once per frame
+    float spawnTimer = 3f; // Initial 3 seconds
+
     void Update()
     {
-        
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
+        {
+            spawnTimer = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
+            SpawnMissileWarning();
+        }
+    }
+
+    void SpawnMissileWarning()
+    {
+        MissileSpawnArea area = spawnAreas[Random.Range(0, spawnAreas.Count)];
+        Vector2 warningSpawnPos = area.GetRandomPosition();
+        Vector2 missileSpawnPos = area.GetMissilePosition(warningSpawnPos);
+
+        MissileWarning warning = Instantiate(missileWarningPrefab,
+            warningSpawnPos, Quaternion.identity).GetComponent<MissileWarning>();
+        warning.Init(missileSpawnPos);
     }
 }
 
