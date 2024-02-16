@@ -9,8 +9,8 @@ public class MissileSpawnArea : MonoBehaviour
 
     public Vector2 GetRandomPosition()
     {
-        float x = Random.Range(-spawnArea.x, spawnArea.x);
-        float y = Random.Range(-spawnArea.y, spawnArea.y);
+        float x = Random.Range(-spawnArea.x / 2f, spawnArea.x / 2f);
+        float y = Random.Range(-spawnArea.y / 2f, spawnArea.y / 2f);
         return transform.position + new Vector3(x, y);
     }
 
