@@ -115,9 +115,15 @@ public class Missile : MonoBehaviour
         */
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+    }
+
     public void Explode()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
         // Increase the score if we didn't blow up the jet
         if (MissileDodgeManager.JetAlive)
