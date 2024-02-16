@@ -6,6 +6,19 @@ public class MissileSpawnArea : MonoBehaviour
 {
     public Vector2 spawnArea;
     public float actualSpawnPushback = 5f;
+
+    public Vector2 GetRandomPosition()
+    {
+        float x = Random.Range(-spawnArea.x, spawnArea.x);
+        float y = Random.Range(-spawnArea.y, spawnArea.y);
+        return transform.position + new Vector3(x, y);
+    }
+
+    public Vector2 GetMissilePosition(Vector2 spawnPosition)
+    {
+        // Direction from origin to point is just the point normalized
+        return spawnPosition + spawnPosition.normalized * actualSpawnPushback;
+    }
 }
 
 /*
