@@ -58,12 +58,12 @@ public class MissileSpawnArea : MonoBehaviour
 /*
 
 MissileSpawnArea.cs
-- Stores where missile warnings and missiles can be spawned
-- Just a vector2 for the area and a float for how far back missiles should be spawned
+- Stores where missile warnings and missiles can be spawned DONE
+- Just a vector2 for the area and a float for how far back missiles should be spawned DONE
 - Pseudocode
-  - Variables for areaSize, missilePushback
-  - fn GetRandomPosition() -> returns random point in area (will be onscreen)
-  - fn GetMissilePosition(spawnPos) -> pushes spawnPos back by missilePushback (will be offscreen)
-  - Draw helpful visuals in OnDrawGizmos
+  - Variables for areaSize, missilePushback DONE
+  - fn GetRandomPosition() -> returns random point in area (will be onscreen) DONE
+  - fn GetMissilePosition(spawnPos) -> pushes spawnPos back by missilePushback (will be offscreen) DONE
+  - Draw helpful visuals in OnDrawGizmos DONE
 
 */
