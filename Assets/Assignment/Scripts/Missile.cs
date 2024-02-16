@@ -13,6 +13,9 @@ public class Missile : MonoBehaviour
     public float velocityMultiplier = 2f;
     public AnimationCurve velocityOverLifetime;
 
+    [Space]
+    public GameObject explosionPrefab;
+
     Rigidbody2D rb;
 
     float lifetime;
@@ -112,9 +115,13 @@ public class Missile : MonoBehaviour
         */
     }
 
-    void OnDestroy()
+    public void Explode()
     {
-        //MissileDodgeManager.OnPlaneDestroyed();
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+        // Increase the score if we didn't blow up the jet
+        if (MissileDodgeManager.JetAlive)
+            Score.OnMissileDodged();
     }
 }
 

@@ -9,6 +9,7 @@ public class MissileDodgeManager : MonoBehaviour
     Jet currentJet;
 
     public static Jet CurrentJet => instance.currentJet;
+    public static bool JetAlive => CurrentJet != null;
 
     private void Awake()
     {
