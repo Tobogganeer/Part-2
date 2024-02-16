@@ -21,6 +21,25 @@ public class Missile : MonoBehaviour
 
     Quaternion targetRotation;
     Vector2 velocity;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        // The clock is ticking for these missiles
+        lifetime = maxLifetime;
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private void FixedUpdate()
+    {
+        
+    }
 }
 
 /*
