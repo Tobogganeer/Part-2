@@ -23,7 +23,7 @@ public class Missile : MonoBehaviour
 
     Quaternion targetRotation;
     Vector2 velocity;
-    Vector2 predictedImpactPoint;
+    Vector3 predictedImpactPoint;
 
     static readonly string Tag_Jet = "Jet";
 
@@ -48,21 +48,18 @@ public class Missile : MonoBehaviour
     void CalculateImpactPoint()
     {
         // TODO: Implement
+        if (MissileDodgeManager.JetAlive)
+            predictedImpactPoint = MissileDodgeManager.CurrentJet.transform.position;
     }
 
     void SetTargetRotation()
     {
-        /*
-        Vector3 cursorPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        cursorPosition.z = 0; // Make it 2D
-
-        // Direction from us to the mouse
-        Vector2 direction = cursorPosition - transform.position;
-        // Angle from us to the mouse (in degrees)
+        // Direction from us to the impact point
+        Vector2 direction = predictedImpactPoint - transform.position;
+        // Angle from us to the point (in degrees)
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         // Where we want to be headed (convert to unity coord system)
         targetRotation = Quaternion.Euler(0, 0, angle - 90f);
-        */
     }
 
     void UpdateLifetime()
