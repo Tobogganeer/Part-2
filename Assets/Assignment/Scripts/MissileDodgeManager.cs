@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class MissileDodgeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static MissileDodgeManager instance;
+    
+    Jet currentJet;
 
-    // Update is called once per frame
-    void Update()
+    public static Jet CurrentJet => instance.currentJet;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
     public static void OnPlaneDestroyed()
