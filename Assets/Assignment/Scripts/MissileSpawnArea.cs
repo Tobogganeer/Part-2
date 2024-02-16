@@ -19,6 +19,40 @@ public class MissileSpawnArea : MonoBehaviour
         // Direction from origin to point is just the point normalized
         return spawnPosition + spawnPosition.normalized * actualSpawnPushback;
     }
+
+    private void OnDrawGizmos()
+    {
+        // Our spawn area
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, spawnArea);
+
+        // Calculate where missiles will spawn
+        Vector2 pushCenter = transform.position;
+        Bounds b = new Bounds(pushCenter, spawnArea);
+        Vector2 ext = b.extents;
+
+        // Find some good points and reset the bounds to that
+        Vector2 min = GetMissilePosition(b.min);
+        Vector2 max = GetMissilePosition(b.max);
+        b.SetMinMax(min, max);
+
+        // Push all 4 corners away (we've already done two but meh)
+        b = PushCorner(b, pushCenter, new Vector2(ext.x, ext.y));
+        b = PushCorner(b, pushCenter, new Vector2(-ext.x, ext.y));
+        b = PushCorner(b, pushCenter, new Vector2(-ext.x, -ext.y));
+        b = PushCorner(b, pushCenter, new Vector2(ext.x, -ext.y));
+
+        // Draw that area
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(b.center, b.size);
+    }
+
+    Bounds PushCorner(Bounds b, Vector2 center, Vector2 cornerExtents)
+    {
+        Vector2 pushedCorner = GetMissilePosition(center + cornerExtents);
+        b.Encapsulate(pushedCorner);
+        return b;
+    }
 }
 
 /*
