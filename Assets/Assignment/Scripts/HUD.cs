@@ -24,9 +24,11 @@ public class HUD : MonoBehaviour
 
     [Header("Clock")]
     public TMP_Text clockText;
+    public TMP_Text clockHighScoreText;
 
     [Header("Score")]
     public TMP_Text scoreText;
+    public TMP_Text highScoreText;
 
     private void Start()
     {
@@ -47,11 +49,6 @@ public class HUD : MonoBehaviour
         instance.boostFill.color = value01 < 0.01f ? instance.boostAvailableColour : instance.boostRechargingColour;
     }
 
-    public static void SetClock(int time)
-    {
-        instance.clockText.text = "Clock: " + time;
-    }
-
     public void SetLives(int livesLeft)
     {
         // Set the icons active if they are lucky enough
@@ -59,9 +56,24 @@ public class HUD : MonoBehaviour
             livesIcons[i].SetActive(i < livesLeft);
     }
 
+    public void SetClock(int time)
+    {
+        clockText.text = "Clock: " + time;
+    }
+
+    public void SetClockHighScore(int time)
+    {
+        clockHighScoreText.text = $"(High: {time})";
+    }
+
     public void SetScore(int missilesDodged)
     {
         scoreText.text = "Score: " + missilesDodged;
+    }
+
+    public void SetHighScore(int missilesDodged)
+    {
+        highScoreText.text = $"(High: {missilesDodged})";
     }
 }
 
