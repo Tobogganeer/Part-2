@@ -2657,6 +2657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilesDodged: 0
   clock: 0
+  highScore: 0
+  highTime: 0
 --- !u!114 &1667912451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2680,7 +2682,9 @@ MonoBehaviour:
   boostRechargingColour: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
   boostAvailableColour: {r: 0.34069067, g: 0.8301887, b: 0.4433765, a: 1}
   clockText: {fileID: 198698907}
+  clockHighScoreText: {fileID: 1146642934}
   scoreText: {fileID: 779117853}
+  highScoreText: {fileID: 1197398422}
 --- !u!1 &1728477713
 GameObject:
   m_ObjectHideFlags: 0

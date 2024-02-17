@@ -49,11 +49,11 @@ public class HUD : MonoBehaviour
         instance.boostFill.color = value01 < 0.01f ? instance.boostAvailableColour : instance.boostRechargingColour;
     }
 
-    public void SetLives(int livesLeft)
+    public static void SetLives(int livesLeft)
     {
         // Set the icons active if they are lucky enough
-        for (int i = 0; i < livesIcons.Length; i++)
-            livesIcons[i].SetActive(i < livesLeft);
+        for (int i = 0; i < instance.livesIcons.Length; i++)
+            instance.livesIcons[i].SetActive(i < livesLeft);
     }
 
     public void SetClock(int time)

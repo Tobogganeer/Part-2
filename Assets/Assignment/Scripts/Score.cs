@@ -72,8 +72,8 @@ public class Score : MonoBehaviour
         highTime = Mathf.Max(highTime, clock);
 
         // Update the UI
-        SendMessage(nameof(HUD.SetScore), missilesDodged);
-        SendMessage(nameof(HUD.SetScore), missilesDodged);
+        SendMessage(nameof(HUD.SetHighScore), highScore);
+        SendMessage(nameof(HUD.SetClockHighScore), highTime);
     }
 
     void LoadScores()
