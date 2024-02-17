@@ -17,9 +17,10 @@ public class HUD : MonoBehaviour
 
     [Header("Boost")]
     public Slider boostSlider;
-    public Color boostAvailableColour;
+    public Image boostFill;
+    public Color boostingColour;
     public Color boostRechargingColour;
-    public Color boostNeutralColour;
+    public Color boostAvailableColour;
 
     [Header("Clock")]
     public TMP_Text clockText;
@@ -29,26 +30,30 @@ public class HUD : MonoBehaviour
 
     public static void SetBoostTime(float value01)
     {
-
+        instance.boostSlider.value = value01;
+        instance.boostFill.color = instance.boostingColour;
     }
 
     public static void SetBoostCooldown(float value01)
     {
-
+        instance.boostSlider.value = value01;
+        instance.boostFill.color = instance.boostRechargingColour; // TODO: Correct once i see whether it's high or low
     }
 
-    public static void SetClock()
+    public static void SetClock(int time)
     {
-
+        instance.clockText.text = "Clock: " + time;
     }
 
     public void SetLives(int livesLeft)
     {
-
+        // Set the icons active if they are lucky enough
+        for (int i = 0; i < livesIcons.Length; i++)
+            livesIcons[i].SetActive(i < livesLeft);
     }
 
     public void SetScore(int missilesDodged)
     {
-
+        scoreText.text = "Score: " + missilesDodged;
     }
 }
