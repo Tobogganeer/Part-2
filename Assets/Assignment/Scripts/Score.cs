@@ -15,12 +15,18 @@ public class Score : MonoBehaviour
     public int missilesDodged;
     public int clock;
 
+    public int highScore;
+    public int highTime;
+
     float clockTimer;
 
     void Start()
     {
+        LoadScores();
         // Initialize the texts to their default values
         UpdateClockUI();
+        UpdateScoreUI();
+        UpdateHighScores();
     }
 
     void Update()
@@ -35,19 +41,58 @@ public class Score : MonoBehaviour
             clockTimer = 0;
             // Update the hud with the current clock
             UpdateClockUI();
+            UpdateHighScores();
         }
     }
 
     void UpdateClockUI()
     {
-        
         SendMessage(nameof(HUD.SetClock), clock);
+    }
+
+    void UpdateScoreUI()
+    {
+        SendMessage(nameof(HUD.SetScore), missilesDodged);
     }
 
 
     public static void OnMissileDodged()
     {
-        // TODO: Functionality (no exceptions for now)
+        instance.missilesDodged++;
+        instance.UpdateScoreUI();
+        instance.UpdateHighScores();
+    }
+
+
+
+    void UpdateHighScores()
+    {
+        // Check if our current scores are higher
+        highScore = Mathf.Max(highScore, missilesDodged);
+        highTime = Mathf.Max(highTime, clock);
+
+        // Update the UI
+        SendMessage(nameof(HUD.SetScore), missilesDodged);
+        SendMessage(nameof(HUD.SetScore), missilesDodged);
+    }
+
+    void LoadScores()
+    {
+        highScore = PlayerPrefs.GetInt(nameof(highScore), 0);
+        highTime = PlayerPrefs.GetInt(nameof(highTime), 0);
+    }
+
+    void SaveScores()
+    {
+        PlayerPrefs.SetInt(nameof(highScore), highScore);
+        PlayerPrefs.SetInt(nameof(highTime), highTime);
+        PlayerPrefs.Save();
+    }
+
+    private void OnDestroy()
+    {
+        // Save our high scores before we leave
+        SaveScores();
     }
 }
 
