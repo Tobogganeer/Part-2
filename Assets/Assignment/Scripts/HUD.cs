@@ -64,3 +64,15 @@ public class HUD : MonoBehaviour
         scoreText.text = "Score: " + missilesDodged;
     }
 }
+
+/*
+
+HUD.cs (heads-up display, score and such)
+- Manages the UI like score, lives, etc
+- No components in and of itself
+- Pseudocode:
+  - Variables for livesText, scoreText, highScoreText, missilesDodgedText etc, playerRespawnText, singleton
+  - Stores singleton in Awake
+  - static fns for SetScore, SetMissileDodges, SetLives, etc which update UI elements
+
+*/
