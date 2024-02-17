@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  turnDegreesPerSecond: 100
+  turnDegreesPerSecond: 115
   acceleration: 4
-  leadTimeMultiplier: 0.9
+  leadTimeMultiplier: 1
   maxLifetime: 4.5
-  velocityMultiplier: 4
+  velocityMultiplier: 4.5
   velocityOverLifetime:
     serializedVersion: 2
     m_Curve:
@@ -122,11 +122,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.8565475
-      outSlope: 0.8565475
+      inSlope: 1.7068185
+      outSlope: 1.7068185
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.05782318
+      inWeight: 0.044217765
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

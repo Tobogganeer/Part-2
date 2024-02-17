@@ -101,11 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaaeb50d169bbd741baafe0a903ee7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  turnSpeed: 3
+  speed: 4.75
+  turnSpeed: 2.75
   acceleration: 4
-  boostTime: 1.25
-  boostMultiplier: 3
+  boostTime: 1
+  boostMultiplier: 2.75
   boostCurve:
     serializedVersion: 2
     m_Curve:
@@ -139,7 +139,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  boostCooldown: 2.5
+  boostCooldown: 3.5
 --- !u!95 &1252736917562324055
 Animator:
   serializedVersion: 5

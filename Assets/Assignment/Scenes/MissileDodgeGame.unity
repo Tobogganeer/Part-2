@@ -485,7 +485,7 @@ MonoBehaviour:
   startingLives: 3
   jetPrefab: {fileID: 3227730853501502438, guid: 6c334838c1cfd8347b875d0e4cf5b92a, type: 3}
   hud: {fileID: 363629427}
-  gameOverScreen: {fileID: 0}
+  gameOverScreen: {fileID: 1613921343}
   respawnTimerText: {fileID: 1888680779}
   scoreText: {fileID: 1716664202}
   clockText: {fileID: 1665891194}
