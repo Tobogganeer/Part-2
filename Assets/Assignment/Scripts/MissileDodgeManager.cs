@@ -33,11 +33,56 @@ public class MissileDodgeManager : MonoBehaviour
     private void Start()
     {
         SpawnJet();
+        lives = startingLives;
+        // Show how many lives we start with
+        HUD.SetLives(lives);
     }
 
     public static void OnPlaneDestroyed()
     {
-        // TODO: Functionality (no exceptions for now)
+        // Take away a life and update the display
+        instance.lives--;
+        HUD.SetLives(instance.lives);
+
+        instance.respawnTimer = instance.respawnTime;
+    }
+
+    private void Update()
+    {
+        if (lives <= 0)
+        {
+            OutOfLives();
+            return;
+        }
+
+        if (respawnTimer > 0)
+        {
+            respawnTimer -= Time.deltaTime;
+            // Show how much time we have left
+            respawnTimerText.gameObject.SetActive(true);
+            respawnTimerText.text = "Respawn in " + Mathf.Ceil(respawnTimer);
+
+            if (respawnTimer <= 0)
+            {
+                // Just reached 0, spawn back in
+                SpawnJet();
+            }
+        }
+        else
+        {
+            respawnTimerText.gameObject.SetActive(false);
+        }
+    }
+
+    void OutOfLives()
+    {
+        // Turn off the normal UI and display the game over screen
+        respawnTimerText.gameObject.SetActive(false);
+        hud.SetActive(false);
+        gameOverScreen.SetActive(true);
+        // Display your stats for this run
+        scoreText.text = "Score: " + Score.instance.missilesDodged;
+        clockText.text = "Time survived: " + Score.instance.clock;
     }
 
     void SpawnJet()
