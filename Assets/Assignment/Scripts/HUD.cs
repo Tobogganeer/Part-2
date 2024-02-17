@@ -28,16 +28,23 @@ public class HUD : MonoBehaviour
     [Header("Score")]
     public TMP_Text scoreText;
 
+    private void Start()
+    {
+        // Get the boost slider ready
+        SetBoostCooldown(0f);
+    }
+
     public static void SetBoostTime(float value01)
     {
-        instance.boostSlider.value = value01;
+        instance.boostSlider.value = 1f - value01;
         instance.boostFill.color = instance.boostingColour;
     }
 
     public static void SetBoostCooldown(float value01)
     {
-        instance.boostSlider.value = value01;
-        instance.boostFill.color = instance.boostRechargingColour; // TODO: Correct once i see whether it's high or low
+        instance.boostSlider.value = 1f - value01;
+        // If it's all the way recharged, change the colour.
+        instance.boostFill.color = value01 < 0.01f ? instance.boostAvailableColour : instance.boostRechargingColour;
     }
 
     public static void SetClock(int time)
