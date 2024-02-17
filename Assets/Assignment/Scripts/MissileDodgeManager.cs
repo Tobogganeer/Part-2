@@ -36,6 +36,7 @@ public class MissileDodgeManager : MonoBehaviour
         lives = startingLives;
         // Show how many lives we start with
         HUD.SetLives(lives);
+        gameOverScreen.SetActive(false);
     }
 
     public static void OnPlaneDestroyed()
