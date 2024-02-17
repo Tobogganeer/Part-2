@@ -2343,6 +2343,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1667912449}
+  - component: {fileID: 1667912451}
+  - component: {fileID: 1667912450}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -2371,6 +2373,42 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1667912450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667912448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758d4a4b4be73864ab397b0174715ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1667912451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667912448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c40eff434dd2e346845a19bff3a6e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  livesIcons:
+  - {fileID: 901639604}
+  - {fileID: 2021019354}
+  - {fileID: 1102862951}
+  - {fileID: 1889653851}
+  boostSlider: {fileID: 65271461}
+  boostFill: {fileID: 843030688}
+  boostingColour: {r: 0.36320752, g: 0.52484757, b: 1, a: 1}
+  boostRechargingColour: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
+  boostAvailableColour: {r: 0.34069067, g: 0.8301887, b: 0.4433765, a: 1}
+  clockText: {fileID: 198698907}
+  scoreText: {fileID: 779117853}
 --- !u!1 &1728477713
 GameObject:
   m_ObjectHideFlags: 0
