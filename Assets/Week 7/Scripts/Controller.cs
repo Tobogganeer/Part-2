@@ -15,6 +15,7 @@ public class Controller : MonoBehaviour
     public Slider flickPowerSlider;
 
     float flickCharge;
+    Vector2? flickForce;
 
     public static void SetCurrentPlayer(SubbuteoPlayer player)
     {
@@ -26,6 +27,42 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        
+        if (SelectedPlayer == null)
+        {
+            // Don't allow charging if we have no player
+            flickCharge = 0;
+            UpdateFlickSlider();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            flickCharge = 0;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            flickCharge += flickChargeSpeed * Time.deltaTime;
+            flickCharge = Mathf.Min(flickCharge, 1f); // Clamp to never be greater than 1
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            float force = flickPower * flickCharge;
+            // Find out where they are going
+            Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseDir = cursorPos - SelectedPlayer.transform.position;
+            // Set the total force we will be applying to the player
+            flickForce = mouseDir.normalized * force;
+
+            // Set us back to 0 (I know GetKeyDown does this but still)
+            flickCharge = 0;
+        }
+
+        UpdateFlickSlider();
+    }
+
+    private void UpdateFlickSlider()
+    {
+        flickPowerSlider.value = flickCharge;
     }
 }
