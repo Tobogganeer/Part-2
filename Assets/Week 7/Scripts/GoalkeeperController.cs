@@ -6,15 +6,12 @@ using UnityEngine;
 
 public class GoalkeeperController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Rigidbody2D goalkeeperRB;
+    public float goalRadius = 2.5f;
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, goalRadius);
     }
 }

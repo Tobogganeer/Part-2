@@ -4415,6 +4415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de7da82e01c7354ba7df65db22c82e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalkeeperRB: {fileID: 8335437733886658269}
+  goalRadius: 2.5
 --- !u!4 &1852184683
 Transform:
   m_ObjectHideFlags: 0
@@ -4986,7 +4988,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8005100272497332802}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
