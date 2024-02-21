@@ -61,6 +61,18 @@ public class Controller : MonoBehaviour
         UpdateFlickSlider();
     }
 
+    private void FixedUpdate()
+    {
+        // Only advance if we actually have a player
+        if (SelectedPlayer == null)
+            return;
+
+        if (flickForce != null)
+        {
+            //SelectedPlayer
+        }
+    }
+
     private void UpdateFlickSlider()
     {
         flickPowerSlider.value = flickCharge;

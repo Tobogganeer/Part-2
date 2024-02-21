@@ -26,6 +26,12 @@ public class SubbuteoPlayer : MonoBehaviour
         spriteRenderer.color = selected ? selectedColour : unselectedColour;
     }
 
+    public void Move(Vector2 force)
+    {
+        // Multiply by mass to have a constant velocity change regardless of mass
+        rb.AddForce(force * rb.mass, ForceMode2D.Impulse);
+    }
+
     private void OnMouseDown()
     {
         // We are selected yippee!!!
