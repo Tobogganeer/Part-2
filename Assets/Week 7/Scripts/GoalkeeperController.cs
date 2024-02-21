@@ -8,6 +8,7 @@ public class GoalkeeperController : MonoBehaviour
 {
     public Rigidbody2D goalkeeperRB;
     public float goalRadius = 2.5f;
+    public float moveSpeed = 1f;
 
     private void FixedUpdate()
     {
@@ -26,7 +27,8 @@ public class GoalkeeperController : MonoBehaviour
             targetPosition = centerPos + direction.normalized * Mathf.Min(goalRadius, distance / 2f);
         }
 
-        goalkeeperRB.position = targetPosition;
+        //goalkeeperRB.position = targetPosition;
+        goalkeeperRB.position = Vector2.MoveTowards(goalkeeperRB.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
     private void OnDrawGizmos()
