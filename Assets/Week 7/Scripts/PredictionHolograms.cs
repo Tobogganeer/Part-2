@@ -11,23 +11,37 @@ public class PredictionHolograms : MonoBehaviour
     public float extrapolationTime = 1f;
 
     [Space]
-    public GameObject ballHologram;
-    public GameObject playerHologram;
+    public Transform ballHologram;
+    public Transform playerHologram;
 
     private void FixedUpdate()
     {
+        // Check if we have a player selected
+        if (Controller.SelectedPlayer == null)
+            return;
+
+        // Check if we aren't even trying to flick
+        Vector2 force = Controller.GetCurrentForce();
+        if (force.sqrMagnitude < 0.01)
+            return;
+
         SimulatedScene scene = PhysicsPrediction.CreateSimulation();
+
+        if (!scene.TryGetCopiedObject(ball, out GameObject ballCopy))
+            goto Destroy;
+        if (!scene.TryGetCopiedObject(Controller.SelectedPlayer.gameObject, out GameObject playerCopy))
+            goto Destroy;
+
+        // Simulate pushing the player
+        playerCopy.GetComponent<SubbuteoPlayer>().Move(force);
+
+        // Time warp!
         scene.Simulate(extrapolationTime);
 
-        if (scene.TryGetCopiedObject(ball, out GameObject ballCopy))
-        {
-            // Show where the ball will be
-            devBallMarker.transform.position = ballCopy.GetComponent<Rigidbody2D>().position;
-        }
-        else
-        {
-            Debug.LogWarning("Could not find ball copy!");
-        }
+        ballHologram.position = ballCopy.transform.position;
+        playerHologram.position = playerCopy.transform.position;
+
+        Destroy:
         scene.Destroy();
     }
 }
