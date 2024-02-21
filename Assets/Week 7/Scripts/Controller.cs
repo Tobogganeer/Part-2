@@ -14,6 +14,7 @@ public class Controller : MonoBehaviour
 
     [Space]
     public Slider flickPowerSlider;
+    public TMPro.TMP_Text scoreText;
 
     float flickCharge;
     Vector2? flickForce;
@@ -32,7 +33,7 @@ public class Controller : MonoBehaviour
         {
             // Don't allow charging if we have no player
             flickCharge = 0;
-            UpdateFlickSlider();
+            UpdateUI();
             return;
         }
 
@@ -60,7 +61,7 @@ public class Controller : MonoBehaviour
             flickCharge = 0;
         }
 
-        UpdateFlickSlider();
+        UpdateUI();
     }
 
     private void FixedUpdate()
@@ -77,8 +78,10 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private void UpdateFlickSlider()
+    private void UpdateUI()
     {
         flickPowerSlider.value = flickCharge;
+        // A bit wasteful on GC, maybe.
+        scoreText.text = "Score: " + Score;
     }
 }
