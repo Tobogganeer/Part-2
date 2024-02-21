@@ -13,15 +13,16 @@ public class PhysicsPrediction : MonoBehaviour
     public GameObject[] trackedObjects;
 
     // https://docs.unity3d.com/ScriptReference/PhysicsScene.Simulate.html
-    public Dictionary<GameObject, GameObject> Simulate(float time)
+    public SimulatedScene Simulate(float time)
     {
+        // I assume doing this once per frame will be dreadful for performance
         Scene current = SceneManager.GetActiveScene();
 
         Scene simScene = SceneManager.CreateScene("PhysicsSim", new CreateSceneParameters(LocalPhysicsMode.Physics2D));
         // Set the sim to be the current scene
         SceneManager.SetActiveScene(simScene);
 
-        Dictionary<GameObject, GameObject> objects = CopyObjects();
+        Dictionary<GameObject, GameObject> actualToCopy = CopyObjects();
 
         {
             PhysicsScene2D phys = simScene.GetPhysicsScene2D();
@@ -41,8 +42,7 @@ public class PhysicsPrediction : MonoBehaviour
         // Reset the scene
         SceneManager.SetActiveScene(current);
 
-        // Return the map of actual objects to copied objects
-        return objects;
+        return new SimulatedScene(simScene, actualToCopy);
     }
 
     private Dictionary<GameObject, GameObject> CopyObjects()
@@ -54,5 +54,37 @@ public class PhysicsPrediction : MonoBehaviour
             actualToCopy.Add(obj, Instantiate(obj));
         }
         return actualToCopy;
+    }
+}
+
+public class SimulatedScene
+{
+    private Scene sceneHandle;
+    private Dictionary<GameObject, GameObject> actualToCopy;
+
+    public SimulatedScene(Scene sceneHandle, Dictionary<GameObject, GameObject> actualToCopy)
+    {
+        this.sceneHandle = sceneHandle;
+        this.actualToCopy = actualToCopy;
+    }
+
+    /// <summary>
+    /// Tries to get the copied object from this scene.
+    /// </summary>
+    /// <param name="realObj"></param>
+    /// <param name="copy"></param>
+    /// <returns></returns>
+    public bool TryGetCopiedObject(GameObject realObj, out GameObject copy)
+    {
+        return actualToCopy.TryGetValue(realObj, out copy);
+    }
+
+    /// <summary>
+    /// Destroys this scene.
+    /// </summary>
+    /// <returns></returns>
+    public AsyncOperation Destroy()
+    {
+        return SceneManager.UnloadSceneAsync(sceneHandle);
     }
 }
