@@ -10,6 +10,11 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     static readonly string GoalTag = "Goal";
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Make sure we are colliding with the goal
@@ -20,5 +25,6 @@ public class Ball : MonoBehaviour
         // Reset ourselves
         transform.position = kickoff.position;
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0;
     }
 }
