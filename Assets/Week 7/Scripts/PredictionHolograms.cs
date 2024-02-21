@@ -16,6 +16,10 @@ public class PredictionHolograms : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Move holograms off screen
+        ballHologram.position = Vector3.left * 1000;
+        playerHologram.position = Vector3.left * 1000;
+
         // Check if we have a player selected
         if (Controller.SelectedPlayer == null)
             return;
@@ -33,7 +37,10 @@ public class PredictionHolograms : MonoBehaviour
             goto Destroy;
 
         // Simulate pushing the player
-        playerCopy.GetComponent<SubbuteoPlayer>().Move(force);
+        // They don't call Start() and so don't reference their rb; move them directly
+        // (instead of SubbuteoPlayer.Move())
+        Rigidbody2D copyRB = playerCopy.GetComponent<Rigidbody2D>();
+        copyRB.AddForce(force * copyRB.mass, ForceMode2D.Impulse);
 
         // Time warp!
         scene.Simulate(extrapolationTime);
