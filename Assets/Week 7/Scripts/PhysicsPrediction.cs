@@ -10,10 +10,16 @@ public class PhysicsPrediction : MonoBehaviour
     // This is just a bit of fun
     // I want to experiment with a thing I've only briefly had the chance to try before
 
+    public static PhysicsPrediction Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public GameObject[] trackedObjects;
 
     // https://docs.unity3d.com/ScriptReference/PhysicsScene.Simulate.html
-    public SimulatedScene CreateSimulation()
+    public static SimulatedScene CreateSimulation()
     {
         // I assume doing this once per frame will be dreadful for performance
         Scene current = SceneManager.GetActiveScene();
@@ -30,7 +36,7 @@ public class PhysicsPrediction : MonoBehaviour
         return new SimulatedScene(simScene, actualToCopy);
     }
 
-    public void Simulate(SimulatedScene scene, float time)
+    public static void Simulate(SimulatedScene scene, float time)
     {
         PhysicsScene2D phys = scene.GetSceneHandle().GetPhysicsScene2D();
         // Make physics execute due to scripts
@@ -46,10 +52,10 @@ public class PhysicsPrediction : MonoBehaviour
         Physics2D.simulationMode = currentSimMode;
     }
 
-    private Dictionary<GameObject, GameObject> SpawnObjectCopies()
+    private static Dictionary<GameObject, GameObject> SpawnObjectCopies()
     {
         Dictionary<GameObject, GameObject> actualToCopy = new Dictionary<GameObject, GameObject>();
-        foreach (GameObject obj in trackedObjects)
+        foreach (GameObject obj in Instance.trackedObjects)
         {
             // Just copy every object in our list
             actualToCopy.Add(obj, Instantiate(obj));
