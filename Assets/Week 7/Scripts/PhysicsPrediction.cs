@@ -73,7 +73,15 @@ public class PhysicsPrediction : MonoBehaviour
         foreach (GameObject obj in Instance.trackedObjects)
         {
             // Just copy every object in our list
-            actualToCopy.Add(obj, Instantiate(obj));
+            GameObject copy = Instantiate(obj);
+            actualToCopy.Add(obj, copy);
+            // Copy rigidbodies if applicable
+            if (obj.TryGetComponent(out Rigidbody2D rb))
+            {
+                Rigidbody2D copyRB = copy.GetComponent<Rigidbody2D>();
+                copyRB.velocity = rb.velocity;
+                copyRB.angularVelocity = rb.angularVelocity;
+            }
         }
         return actualToCopy;
     }

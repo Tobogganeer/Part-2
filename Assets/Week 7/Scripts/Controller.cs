@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    public static Controller Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public static SubbuteoPlayer SelectedPlayer { get; private set; }
     public static int Score { get; set; }
 
@@ -50,18 +56,23 @@ public class Controller : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            float force = flickPower * flickCharge;
-            // Find out where they are going
-            Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mouseDir = cursorPos - SelectedPlayer.transform.position;
             // Set the total force we will be applying to the player
-            flickForce = mouseDir.normalized * force;
+            flickForce = GetCurrentForce();
 
             // Set us back to 0 (I know GetKeyDown does this but still)
             flickCharge = 0;
         }
 
         UpdateUI();
+    }
+
+    public static Vector2 GetCurrentForce()
+    {
+        float force = Instance.flickPower * Instance.flickCharge;
+        // Find out where they are going
+        Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseDir = cursorPos - SelectedPlayer.transform.position;
+        return mouseDir.normalized * force;
     }
 
     private void FixedUpdate()

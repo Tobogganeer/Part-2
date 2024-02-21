@@ -7,17 +7,19 @@ using UnityEngine;
 public class PredictionHolograms : MonoBehaviour
 {
     // Shows holograms of what will happen in the future
-    public GameObject devBallMarker;
     public GameObject ball;
-    public float devExtrapolationTime = 1f;
+    public float extrapolationTime = 1f;
+
+    [Space]
+    public GameObject ballHologram;
+    public GameObject playerHologram;
 
     private void FixedUpdate()
     {
         SimulatedScene scene = PhysicsPrediction.CreateSimulation();
-        scene.TryGetCopiedObject(ball, out GameObject ballCopy);
-        ballCopy.GetComponent<Rigidbody2D>().velocity = ball.GetComponent<Rigidbody2D>().velocity;
-        scene.Simulate(devExtrapolationTime);
-        if (scene.TryGetCopiedObject(ball, out ballCopy))
+        scene.Simulate(extrapolationTime);
+
+        if (scene.TryGetCopiedObject(ball, out GameObject ballCopy))
         {
             // Show where the ball will be
             devBallMarker.transform.position = ballCopy.GetComponent<Rigidbody2D>().position;
