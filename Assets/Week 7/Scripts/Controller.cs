@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
     public static SubbuteoPlayer SelectedPlayer { get; private set; }
 
     public float flickChargeSpeed = 0.33f; // 3 seconds to charge?
-    public float flickPower = 100f;
+    public float flickPower = 20f;
 
     [Space]
     public Slider flickPowerSlider;
@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour
             // Don't allow charging if we have no player
             flickCharge = 0;
             UpdateFlickSlider();
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -69,7 +70,9 @@ public class Controller : MonoBehaviour
 
         if (flickForce != null)
         {
-            //SelectedPlayer
+            // Move the player and reset the force
+            SelectedPlayer.Move(flickForce.Value);
+            flickForce = null;
         }
     }
 
