@@ -8,7 +8,7 @@ public class Controller : MonoBehaviour
 {
     public static SubbuteoPlayer SelectedPlayer { get; private set; }
 
-    public float flickChargeSpeed = 0.33f; // 3 seconds to charge?
+    public float flickChargeSpeed = 1.0f; // Charge percent per second
     public float flickPower = 20f;
 
     [Space]
