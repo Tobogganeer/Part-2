@@ -17,6 +17,15 @@ public class PhysicsPrediction : MonoBehaviour
     }
 
     public GameObject[] trackedObjects;
+    private static Scene simScene;
+    private static List<GameObject> goBuffer;
+    const float DT = 0.02f;
+
+    private void Start()
+    {
+        simScene = SceneManager.CreateScene("PhysicsSim", new CreateSceneParameters(LocalPhysicsMode.Physics2D));
+        goBuffer = new List<GameObject>(trackedObjects.Length);
+    }
 
     // https://docs.unity3d.com/ScriptReference/PhysicsScene.Simulate.html
     public static SimulatedScene CreateSimulation()
@@ -24,10 +33,13 @@ public class PhysicsPrediction : MonoBehaviour
         // I assume doing this once per frame will be dreadful for performance
         Scene current = SceneManager.GetActiveScene();
 
-        Scene simScene = SceneManager.CreateScene("PhysicsSim", new CreateSceneParameters(LocalPhysicsMode.Physics2D));
         // Set the sim to be the current scene
         SceneManager.SetActiveScene(simScene);
 
+        // Clear out the sim scene
+        ClearScene(simScene);
+
+        // Copy in fresh objects
         Dictionary<GameObject, GameObject> actualToCopy = SpawnObjectCopies();
 
         // Reset the scene
@@ -36,6 +48,8 @@ public class PhysicsPrediction : MonoBehaviour
         return new SimulatedScene(simScene, actualToCopy);
     }
 
+    
+
     public static void Simulate(SimulatedScene scene, float time)
     {
         PhysicsScene2D phys = scene.GetSceneHandle().GetPhysicsScene2D();
@@ -43,10 +57,11 @@ public class PhysicsPrediction : MonoBehaviour
         SimulationMode2D currentSimMode = Physics2D.simulationMode;
         Physics2D.simulationMode = SimulationMode2D.Script;
 
-        for (float i = 0; i < time; i += Time.fixedDeltaTime)
+        for (float i = 0; i < time; i += DT)
         {
             // Simulate each step
-            phys.Simulate(Time.fixedDeltaTime);
+            if (phys.Simulate(DT) == false)
+                Debug.LogWarning("Physics not run!");
         }
         // Reset the sim mode
         Physics2D.simulationMode = currentSimMode;
@@ -62,6 +77,13 @@ public class PhysicsPrediction : MonoBehaviour
         }
         return actualToCopy;
     }
+
+    public static void ClearScene(Scene scene)
+    {
+        scene.GetRootGameObjects(goBuffer);
+        for (int i = 0; i < scene.rootCount; i++)
+            Destroy(goBuffer[i]);
+    }
 }
 
 public class SimulatedScene
@@ -74,6 +96,8 @@ public class SimulatedScene
         this.sceneHandle = sceneHandle;
         this.actualToCopy = actualToCopy;
     }
+
+    public void Simulate(float time) => PhysicsPrediction.Simulate(this, time);
 
     /// <summary>
     /// Tries to get the copied object from this scene.
@@ -88,12 +112,8 @@ public class SimulatedScene
 
     public Scene GetSceneHandle() => sceneHandle;
 
-    /// <summary>
-    /// Destroys this scene.
-    /// </summary>
-    /// <returns></returns>
-    public AsyncOperation Destroy()
+    public void Destroy()
     {
-        return SceneManager.UnloadSceneAsync(sceneHandle);
+        PhysicsPrediction.ClearScene(sceneHandle);
     }
 }

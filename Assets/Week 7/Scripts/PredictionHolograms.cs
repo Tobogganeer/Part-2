@@ -14,10 +14,18 @@ public class PredictionHolograms : MonoBehaviour
     private void FixedUpdate()
     {
         SimulatedScene scene = PhysicsPrediction.CreateSimulation();
-        if (scene.TryGetCopiedObject(ball, out GameObject ballCopy))
+        scene.TryGetCopiedObject(ball, out GameObject ballCopy);
+        ballCopy.GetComponent<Rigidbody2D>().velocity = ball.GetComponent<Rigidbody2D>().velocity;
+        scene.Simulate(devExtrapolationTime);
+        if (scene.TryGetCopiedObject(ball, out ballCopy))
         {
             // Show where the ball will be
-            devBallMarker.transform.position = ballCopy.transform.position;
+            devBallMarker.transform.position = ballCopy.GetComponent<Rigidbody2D>().position;
         }
+        else
+        {
+            Debug.LogWarning("Could not find ball copy!");
+        }
+        scene.Destroy();
     }
 }
