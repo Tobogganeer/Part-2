@@ -29,6 +29,6 @@ public class SubbuteoPlayer : MonoBehaviour
     private void OnMouseDown()
     {
         // We are selected yippee!!!
-        Selected(true);
+        Controller.SetCurrentPlayer(this);
     }
 }
