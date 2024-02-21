@@ -4154,7 +4154,7 @@ MonoBehaviour:
   flickChargeSpeed: 1
   flickPower: 15
   flickPowerSlider: {fileID: 1088749856}
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 1915449954}
 --- !u!4 &1571009587
 Transform:
   m_ObjectHideFlags: 0
