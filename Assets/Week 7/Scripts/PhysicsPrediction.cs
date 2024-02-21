@@ -13,7 +13,7 @@ public class PhysicsPrediction : MonoBehaviour
     public GameObject[] trackedObjects;
 
     // https://docs.unity3d.com/ScriptReference/PhysicsScene.Simulate.html
-    public SimulatedScene Simulate(float time)
+    public SimulatedScene CreateSimulation()
     {
         // I assume doing this once per frame will be dreadful for performance
         Scene current = SceneManager.GetActiveScene();
@@ -22,22 +22,7 @@ public class PhysicsPrediction : MonoBehaviour
         // Set the sim to be the current scene
         SceneManager.SetActiveScene(simScene);
 
-        Dictionary<GameObject, GameObject> actualToCopy = CopyObjects();
-
-        {
-            PhysicsScene2D phys = simScene.GetPhysicsScene2D();
-            // Make physics execute due to scripts
-            SimulationMode2D currentSimMode = Physics2D.simulationMode;
-            Physics2D.simulationMode = SimulationMode2D.Script;
-
-            for (float i = 0; i < time; i += Time.fixedDeltaTime)
-            {
-                // Simulate each step
-                phys.Simulate(Time.fixedDeltaTime);
-            }
-            // Reset the sim mode
-            Physics2D.simulationMode = currentSimMode;
-        }
+        Dictionary<GameObject, GameObject> actualToCopy = SpawnObjectCopies();
 
         // Reset the scene
         SceneManager.SetActiveScene(current);
@@ -45,7 +30,23 @@ public class PhysicsPrediction : MonoBehaviour
         return new SimulatedScene(simScene, actualToCopy);
     }
 
-    private Dictionary<GameObject, GameObject> CopyObjects()
+    public void Simulate(SimulatedScene scene, float time)
+    {
+        PhysicsScene2D phys = scene.GetSceneHandle().GetPhysicsScene2D();
+        // Make physics execute due to scripts
+        SimulationMode2D currentSimMode = Physics2D.simulationMode;
+        Physics2D.simulationMode = SimulationMode2D.Script;
+
+        for (float i = 0; i < time; i += Time.fixedDeltaTime)
+        {
+            // Simulate each step
+            phys.Simulate(Time.fixedDeltaTime);
+        }
+        // Reset the sim mode
+        Physics2D.simulationMode = currentSimMode;
+    }
+
+    private Dictionary<GameObject, GameObject> SpawnObjectCopies()
     {
         Dictionary<GameObject, GameObject> actualToCopy = new Dictionary<GameObject, GameObject>();
         foreach (GameObject obj in trackedObjects)
@@ -78,6 +79,8 @@ public class SimulatedScene
     {
         return actualToCopy.TryGetValue(realObj, out copy);
     }
+
+    public Scene GetSceneHandle() => sceneHandle;
 
     /// <summary>
     /// Destroys this scene.
