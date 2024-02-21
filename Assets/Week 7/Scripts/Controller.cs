@@ -7,6 +7,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public static SubbuteoPlayer SelectedPlayer { get; private set; }
+    public static int Score { get; set; }
 
     public float flickChargeSpeed = 1.0f; // Charge percent per second
     public float flickPower = 20f;

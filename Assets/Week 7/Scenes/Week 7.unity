@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 150068378}
   m_Layer: 0
   m_Name: Goal
-  m_TagString: Untagged
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,7 +518,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 5.7680826}
+  m_Offset: {x: 0, y: 5.8621745}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -529,7 +529,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.8603916, y: 1.5815563}
+  m_Size: {x: 4.8603916, y: 1.3933725}
   m_EdgeRadius: 0
 --- !u!50 &150068379
 Rigidbody2D:
@@ -3494,6 +3494,7 @@ GameObject:
   - component: {fileID: 777268255}
   - component: {fileID: 777268258}
   - component: {fileID: 777268257}
+  - component: {fileID: 777268259}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -3630,6 +3631,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &777268259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777268252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab21e543a3c6e4846a53ab52f124c094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kickoff: {fileID: 1079000001}
 --- !u!1 &1079000000
 GameObject:
   m_ObjectHideFlags: 0
